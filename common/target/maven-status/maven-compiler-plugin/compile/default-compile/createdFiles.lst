@@ -1,1 +1,2 @@
 com\example\petstore\common\events\PetCreatedEvent.class
+com\example\petstore\common\model\Status.class

@@ -1,6 +1,6 @@
 package com.example.petstore.command.controller;
 
-import com.example.petstore.command.model.Pet;
+import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.service.PetService;
 
 import lombok.AllArgsConstructor;
@@ -17,8 +17,8 @@ public class PetCommandController {
 	private final PetService service;
 
 	@PostMapping
-	public ResponseEntity<Pet> createPet(@RequestBody Pet pet) {
-		Pet created = service.createPet(pet);
+	public ResponseEntity<PetWriteEntity> createPet(@RequestBody PetWriteEntity pet) {
+		PetWriteEntity created = service.createPet(pet);
 		return ResponseEntity.ok(created);
 	}
 }
