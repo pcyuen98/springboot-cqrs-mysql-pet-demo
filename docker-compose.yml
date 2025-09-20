@@ -21,8 +21,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: petstore_write
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
+      MYSQL_USER: petuser
+      MYSQL_PASSWORD: petpass
     ports:
       - "3306:3306"
     volumes:
@@ -33,23 +33,25 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: petstore_read
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 1234
+      MYSQL_USER: petuser
+      MYSQL_PASSWORD: petpass
     ports:
       - "3307:3306"
     volumes:
       - read_db:/var/lib/mysql
 
-#  petstore-command:
-#    build: ./petstore-command-service
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-write:3306/petstore_write
-#      SPRING_DATASOURCE_USERNAME: petuser
-#      SPRING_DATASOURCE_PASSWORD: petpass
-#      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-#    depends_on:
- #     - mysql-write
- #     - kafka
+  petstore-command:
+    build: ./petstore-command-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-write:3306/petstore_write
+      SPRING_DATASOURCE_USERNAME: petuser
+      SPRING_DATASOURCE_PASSWORD: petpass
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8081:8081"
+    depends_on:
+     - mysql-write
+     - kafka
 
  # petstore-query:
  #   build: ./petstore-query-service
