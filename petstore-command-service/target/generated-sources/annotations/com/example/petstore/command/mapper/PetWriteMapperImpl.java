@@ -8,15 +8,14 @@ import com.example.petstore.command.model.PetWrite;
 import com.example.petstore.command.model.Tag;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
-/*
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-09-20T15:56:16+0800",
-    comments = "version: 1.4.1.Final, compiler: Eclipse JDT (IDE) 3.37.0.v20240215-1558, environment: Java 17.0.15 (Eclipse Adoptium)"
+    date = "2025-09-20T16:18:50+0800",
+    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 17.0.10 (Eclipse Adoptium)"
 )
-*/
 @Component
 public class PetWriteMapperImpl implements PetWriteMapper {
 
