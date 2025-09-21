@@ -1,8 +1,13 @@
 // models/pet.model.ts
 export interface Pet {
-  petId: number;
+  petId?: number; // backend may generate this
   name: string;
-  type: string;
   status: string;
-  url: string;
+  category: {
+    id: number;
+  };
+  tags: Array<{
+    id: number;
+  }>;
+  photoUrl: string[]; // backend expects array
 }

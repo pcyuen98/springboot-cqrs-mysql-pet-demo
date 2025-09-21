@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -40,7 +39,6 @@ class PetWriteMapperTest {
         sampleEntity.setId(10L);
         sampleEntity.setCategory(categoryEntity);
         sampleEntity.setName("Buddy");
-        sampleEntity.setPhotoUrls(Arrays.asList("photo1.jpg", "photo2.jpg"));
         sampleEntity.setStatus(Status.AVAILABLE);
 
         // DTO
@@ -53,7 +51,6 @@ class PetWriteMapperTest {
         sampleDto.setId(20L);
         sampleDto.setCategory(categoryDto);
         sampleDto.setName("Max");
-        sampleDto.setPhotoUrls(Arrays.asList("photo3.jpg", "photo4.jpg"));
         sampleDto.setStatus(Status.PENDING);
 
         // Extra Entity for list test
@@ -61,7 +58,6 @@ class PetWriteMapperTest {
         entity2.setId(11L);
         entity2.setName("Molly");
         entity2.setCategory(categoryEntity);
-        entity2.setPhotoUrls(Arrays.asList("photo5.jpg"));
         entity2.setStatus(Status.SOLD);
 
         // Extra DTO for list test
@@ -74,7 +70,6 @@ class PetWriteMapperTest {
         dto2.setId(21L);
         dto2.setName("Luna");
         dto2.setCategory(categoryDto2);
-        dto2.setPhotoUrls(Arrays.asList("photo6.jpg"));
         dto2.setStatus(Status.AVAILABLE);
 
         sampleEntityList = Arrays.asList(sampleEntity, entity2);
@@ -88,7 +83,6 @@ class PetWriteMapperTest {
         assertEquals(sampleEntity.getId(), dto.getId());
         assertEquals(sampleEntity.getName(), dto.getName());
         assertEquals(sampleEntity.getCategory().getId(), dto.getCategory().getId());
-        assertEquals(sampleEntity.getPhotoUrls(), dto.getPhotoUrls());
         assertEquals(sampleEntity.getStatus(), dto.getStatus());
     }
 
@@ -99,7 +93,6 @@ class PetWriteMapperTest {
         assertEquals(sampleDto.getId(), entity.getId());
         assertEquals(sampleDto.getName(), entity.getName());
         assertEquals(sampleDto.getCategory().getId(), entity.getCategory().getId());
-        assertEquals(sampleDto.getPhotoUrls(), entity.getPhotoUrls());
         assertEquals(sampleDto.getStatus(), entity.getStatus());
     }
 
