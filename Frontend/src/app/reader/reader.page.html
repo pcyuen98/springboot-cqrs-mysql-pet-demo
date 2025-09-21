@@ -10,17 +10,26 @@
     </h1>
   </ion-text>
 
-  <!-- Add & Reload Buttons -->
-  <div class="ion-text-center ion-margin-bottom">
-    <ion-button expand="block" color="primary" shape="round" (click)="onAddPet()">
-      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-      Add New Pet
-    </ion-button>
-    <ion-button expand="block" color="secondary" shape="round" (click)="loadPets()">
-      <ion-icon name="reload-outline" slot="start"></ion-icon>
-      Reload Pets
-    </ion-button>
-  </div>
+<!-- Add & Reload Buttons -->
+<div class="ion-margin-bottom">
+  <ion-grid>
+    <ion-row class="ion-justify-content-center ion-align-items-center">
+      <ion-col size="6" size-md="3">
+        <ion-button expand="block" color="primary" shape="round" (click)="onAddPet()">
+          <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+          Add New Pet
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" size-md="3">
+        <ion-button expand="block" color="secondary" shape="round" (click)="loadPets()">
+          <ion-icon name="reload-outline" slot="start"></ion-icon>
+          Reload Pets
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
 
   <!-- Search Controls -->
   <ion-card>
