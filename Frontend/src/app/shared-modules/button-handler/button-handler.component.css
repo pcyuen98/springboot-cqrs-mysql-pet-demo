@@ -1,0 +1,28 @@
+/* Adjustments for the header to reduce gap */
+
+/* To ensure buttons within ion-col are tightly packed, remove col padding */
+.token-info-col {
+  --padding-start: 1px !important; /* Minimal horizontal padding for columns */
+  --padding-end: 1px !important;   /* Minimal horizontal padding for columns */
+  --ion-grid-column-padding: 0 !important; /* Important for removing default column spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Your existing button styles - ensuring margins are small or 0 */
+.app-button {
+  font-size: 10px;
+  margin: 3px; /* Small margin around buttons for slight separation */
+}
+.centered-title {
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.small-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 0;
+}

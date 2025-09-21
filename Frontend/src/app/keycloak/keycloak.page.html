@@ -1,0 +1,13 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding-horizontal ion-padding-vertical-sm">
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%;">
+    <app-button-handler [actions]="tokenActions" [title]="'🔐 Token Info'"></app-button-handler>
+    <app-button-handler [actions]="frontEndActions" [title]="'🧪 Front-End Testing'" [pageBaseComponent]="this">
+    </app-button-handler>
+    <app-button-handler [actions]="cookiesActions" [title]="'🍪 Cookies Info'"></app-button-handler>
+    <app-button-handler [actions]="springbootActions" [title]="'☕ SpringBoot Context'"></app-button-handler> 
+  </div>
+</ion-content>
+
+<app-footer></app-footer>

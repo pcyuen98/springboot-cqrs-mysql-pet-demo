@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- Left aligned title -->
+    <ion-title>
+      <b>{{ title }}</b>
+    </ion-title>
+
+    <!-- Right aligned buttons -->
+    <ion-buttons slot="end">
+      <b><ion-button color="primary" size="small" (click)="asiAI()">Ask AI</ion-button></b>
+      <ion-icon name="close-circle" size="large" (click)="close()" class="ion-margin-start"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-item>
+  <app-util-ask-ai #askAIComponent></app-util-ask-ai>
+  <span *ngIf="!isLoading && isDesktop()  " style="display: flex; align-items: center; gap: 6px;">
+    <b><small>ℹ️ Highlight any text to ask AI quickly</small></b>
+    <ion-checkbox *ngIf="!isLoading" slot="start" [(ngModel)]="isQuickAsk"
+      style="transform: scale(0.8); --checkbox-size: 16px;">
+    </ion-checkbox>
+  </span>
+</ion-item>
+<ion-content (mouseup)="captureHighlight()" class="ion-padding">
+  {{message}} <br><br>
+
+  <div *ngIf="data" class="table-container">
+    <table>
+      <caption>Key-value pairs of HTTP headers</caption>
+      <thead>
+        <tr>
+          <th>Key</th>
+          <th>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of flatten()">
+          <td>{{ item.key }}</td>
+          <td>{{ item.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</ion-content>

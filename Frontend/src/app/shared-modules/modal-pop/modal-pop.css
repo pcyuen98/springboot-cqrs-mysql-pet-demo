@@ -1,0 +1,70 @@
+.table-container {
+  max-height: 450px;
+  overflow-y: auto;
+  overflow-x: auto; /* allow horizontal scroll if needed */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed; /* ensures fixed column widths */
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: top;
+  word-wrap: break-word; /* wrap text within cells */
+  overflow-wrap: break-word;
+}
+
+thead {
+  background-color: #f5f5f5;
+  position: sticky;
+  top: 0;
+  z-index: 1; /* keeps header above table body */
+}
+
+/* Optional: Define column widths */
+th:nth-child(1), td:nth-child(1) {
+  width: 150px; /* adjust as needed */
+}
+
+th:nth-child(2), td:nth-child(2) {
+  width: 200px;
+}
+
+/* Continue for other columns as needed */
+
+ion-button {
+  margin-right: 8px;
+}
+
+ion-icon {
+  cursor: pointer;
+}
+
+.cookie-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+}
+
+.cookie-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cookie-body {
+  background: #f9f9f9;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 4px;
+  font-family: monospace;
+}

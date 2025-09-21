@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- Left aligned title -->
+    <ion-title>
+      <b>{{ title }}</b>
+    </ion-title>
+
+    <!-- Right aligned buttons -->
+    <ion-buttons slot="end">
+      <b><ion-button color="primary" size="small" (click)="asiAI()">Ask AI</ion-button></b>
+      <ion-icon name="close-circle" size="large" (click)="close()" class="ion-margin-start"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-item>
+  <app-util-ask-ai #askAIComponent></app-util-ask-ai>
+  <span *ngIf="!isLoading && isDesktop()" style="display: flex; align-items: center; gap: 6px;">
+    <b><small>ℹ️ Highlight any text to ask AI quickly</small></b>
+    <ion-checkbox *ngIf="!isLoading " slot="start" [(ngModel)]="isQuickAsk"
+      style="transform: scale(0.8); --checkbox-size: 16px;">
+    </ion-checkbox>
+  </span>
+</ion-item>
+<ion-content (mouseup)="captureHighlight()" class="ion-padding">
+  {{message}} <br><br>
+
+  <div *ngFor="let cookie of data; let i = index" class="cookie-card">
+    <div class="cookie-header">
+      <strong>{{ cookie.name }}</strong>
+      <button (click)="toggle(i)">
+        {{ expandedIndex === i ? 'Close' : 'Expand' }}
+      </button>
+    </div>
+
+    <div *ngIf="expandedIndex === i" class="cookie-body">
+      <pre *ngIf="tryParseJson(cookie.value); else rawValue">
+      {{ tryParseJson(cookie.value) | json }}
+    </pre>
+      <ng-template #rawValue>
+        <pre>{{ cookie.value }}</pre>
+      </ng-template>
+    </div>
+  </div>
+
+
+</ion-content>

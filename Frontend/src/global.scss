@@ -1,0 +1,209 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import '@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+.message {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    display: flex;
+    align-items: center;
+}
+
+.note {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    word-wrap: break-word;
+  //  display: flex;
+    align-items: center;
+}
+
+.grey-message {
+    background-color: #e0e0e0;
+    color: #000;
+    align-self: flex-start;
+}
+
+.green-message {
+    background-color: #4CAF50;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.blue-message {
+    background-color: #4c6baf;
+    color: #fff;
+    align-self: flex-end;
+}
+
+.orange-message {
+    background-color: rgb(227, 116, 0);
+    color: white; /* White font color */
+    align-self: flex-end;
+}
+
+.red-message {
+    background-color: #f5b1b1;
+    color: #000;
+    align-self: flex-start;
+}
+
+.purple-message {
+    background-color: #d7bceb;
+    color: #000;
+    align-self: flex-start;
+}
+
+.light-blue-message {
+    background-color: #bcd8eb;
+    color: #000;
+    align-self: flex-start;
+}
+
+.smart-blue-message {
+    background-color: #4c6baf;
+    color: white;
+    align-self: flex-start;
+}
+
+.yellow-message {
+    background-color: #ebe4bc;
+    color: #000;
+    align-self: flex-start;
+}
+
+.black-white-message {
+    background-color: #000;
+    color: #fff;
+    align-self: flex-start;
+}
+
+ion-item {
+    --min-height: 0px;
+}
+
+.font-link {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    color: #007bff;
+    /* Blue color */
+}
+
+.font-link:hover {
+    text-decoration: underline;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+}
+
+.font-error-link {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    color: #ff0015;
+    /* Blue color */
+}
+
+.error-box {
+  color: red;
+  border: 1px solid red;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #ffe6e6;
+}
+
+.font-error-link:hover {
+    text-decoration: underline;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+}
+
+h2 {
+    padding: 0;
+    margin: 0;
+}
+
+p {
+    padding: 0;
+}
+
+pre {
+    padding: 0;
+    display: inline;
+}
+
+h1 {
+    font-family: "Montserrat, sans-serif", sans-serif;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 33px
+}
+
+a {
+    text-decoration: none;
+    color: #008CBA;
+}
+
+.footer-dark {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  padding: 20px 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.footer-title {
+  color: #46C646;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.footer-title-sm {
+  color: #46C646;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.footer-link {
+  color: #ffffff;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #46C646;
+  text-decoration: underline;
+}
+
+.clickable {
+  user-select: none;
+}
+
+.logout-green {
+  color: #46C646;
+}

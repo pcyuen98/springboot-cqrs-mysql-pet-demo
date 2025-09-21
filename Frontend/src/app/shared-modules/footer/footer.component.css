@@ -1,0 +1,7 @@
+.tight-footer blockquote,
+.tight-footer ul,
+.tight-footer .note {
+  margin: 0;
+  padding: 0.25rem 0.5rem; /* optional: tighter spacing */
+  line-height: 1.2;
+}

@@ -1,0 +1,93 @@
+<app-header></app-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Page Header -->
+  <ion-text class="ion-text-center">
+    <h1 class="ion-margin-top ion-margin-bottom" style="font-weight: bold; font-size: 2rem; color: #2563eb;">
+      <ion-icon name="car-outline" style="font-size: 2.5rem; vertical-align: middle; margin-right: 8px;"></ion-icon>
+      Cars Management
+    </h1>
+  </ion-text>
+
+  <!-- Add Car Button -->
+  <div class="ion-text-center ion-margin-bottom">
+    <ion-button expand="block" color="primary" shape="round" (click)="onAddCar()">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Add New Car
+    </ion-button>
+  </div>
+
+  <!-- Cars Table -->
+  <ion-card *ngIf="cars.length">
+    <ion-card-header>
+      <ion-card-title>Car List</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let car of cars; let i = index">
+          <ion-label>
+            <h2>#{{ i + 1 }} - {{ car.brand }} {{ car.model }}</h2>
+            <p>Year: {{ car.year }}</p>
+          </ion-label>
+          <ion-buttons slot="end">
+            <ion-button fill="clear" color="primary" (click)="onEditCar(car)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+            <ion-button fill="clear" color="danger" (click)="onDeleteCar(car)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Add/Edit/Delete Form -->
+  <ion-card *ngIf="action !== actions.View">
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        {{ action === actions.Add ? 'Add New Car' : (action === actions.Edit ? 'Edit Car' : 'Delete Car') }}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <!-- Add/Edit Form -->
+      <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitCar()">
+        <ion-item>
+          <ion-label position="floating">Brand</ion-label>
+          <ion-input type="text" formControlName="brand"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Model</ion-label>
+          <ion-input type="text" formControlName="model"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Year</ion-label>
+          <ion-input type="number" formControlName="year"></ion-input>
+        </ion-item>
+
+        <div class="ion-text-center ion-margin-top">
+          <ion-button type="submit" [disabled]="form.invalid" color="primary">Save</ion-button>
+          <ion-button type="button" color="medium" (click)="cancel()">Cancel</ion-button>
+        </div>
+      </form>
+
+      <!-- Delete Confirmation -->
+      <div *ngIf="action === actions.Delete && selectedCar" class="ion-text-center">
+        <p class="ion-margin-top">
+          You are about to delete <strong>{{ selectedCar.brand }} {{ selectedCar.model }} ({{ selectedCar.year }})</strong>.
+        </p>
+        <p class="ion-margin-bottom"><strong>Are you sure?</strong></p>
+        <div>
+          <ion-button color="danger" (click)="deleteCar()">Delete</ion-button>
+          <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+        </div>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<app-footer></app-footer>

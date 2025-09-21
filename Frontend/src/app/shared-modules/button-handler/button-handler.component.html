@@ -1,0 +1,33 @@
+<ion-card 
+  class="ion-no-padding"
+  style="box-shadow: none; border: none; --ion-border-color: transparent; --ion-box-shadow: none;">
+  
+  <ion-card-header class="ion-no-padding">
+    <ion-card-title class="centered-title small-title" style="padding: 0; margin: 0;">
+      {{ title }}
+    </ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content class="ion-no-padding">
+    <ion-grid class="ion-no-padding">
+      <ion-row class="ion-justify-content-center" style="flex-wrap: wrap; padding: 0; margin: 0;">
+        <ion-col 
+          size="6" 
+          sizeMd="auto" 
+          *ngFor="let action of actions" 
+          class="token-info-col" 
+          style="padding: 0; margin: 0;">
+          
+          <ion-button 
+            class="app-button" 
+            fill="outline" 
+            [color]="getButtonColor(action)" 
+            (click)="action.handler()">
+            {{ action.label }}
+          </ion-button>
+          
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>
