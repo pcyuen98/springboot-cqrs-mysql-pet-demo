@@ -4,4 +4,5 @@ export interface Pet {
   name: string;
   type: string;
   status: string;
+  url: string;
 }

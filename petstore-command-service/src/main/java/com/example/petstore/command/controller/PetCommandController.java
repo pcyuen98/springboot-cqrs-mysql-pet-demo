@@ -20,7 +20,6 @@ public class PetCommandController {
 	private final PetService service;
 
 	@PostMapping
-	//@PreAuthorize("hasRole('admin')")
 	public ResponseEntity<PetWriteEntity> createPet(@RequestBody PetWriteEntity pet) {
 		PetWriteEntity created = service.createPet(pet);
 		return ResponseEntity.ok(created);

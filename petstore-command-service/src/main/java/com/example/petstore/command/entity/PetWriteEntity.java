@@ -23,10 +23,8 @@ public class PetWriteEntity {
     @Column(nullable = false)
     private String name;
 
-    @ElementCollection
-    @CollectionTable(name = "pet_photos", joinColumns = @JoinColumn(name = "pet_id"))
     @Column(name = "photo_url", nullable = false)
-    private List<String> photoUrls;
+    private String photoUrl;
 
     @ManyToMany
     @JoinTable(
@@ -34,9 +32,9 @@ public class PetWriteEntity {
         joinColumns = @JoinColumn(name = "pet_id"),
         inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<TagEntity> tags;   // <-- many-to-many belongs here ✅
+    private List<TagEntity> tags;  
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;  // <-- single enum field, no @ManyToMany ✅
+    private Status status;   
 }

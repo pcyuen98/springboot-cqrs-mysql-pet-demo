@@ -12,12 +12,10 @@ import com.example.petstore.command.model.PetWrite;
 public interface PetWriteMapper {
 
     @Mapping(target = "status", source = "status")
-    @Mapping(target = "photoUrls", source = "photoUrls")
     @Mapping(target = "category", source = "category")
     PetWrite toDto(PetWriteEntity entity);
 
     @Mapping(target = "status", source = "status")
-    @Mapping(target = "photoUrls", source = "photoUrls")
     @Mapping(target = "category", source = "category")
     PetWriteEntity toEntity(PetWrite dto);
 

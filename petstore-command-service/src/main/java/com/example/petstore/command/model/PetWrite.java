@@ -12,7 +12,7 @@ public class PetWrite {
     private Long id;
     private Category category;
     private String name;
-    private List<String> photoUrls;
+    private String photoUrl;
     private List<Tag> tags;
     private Status status;
 }

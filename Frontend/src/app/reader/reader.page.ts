@@ -39,7 +39,6 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
 
 async loadPets() {
   this.pets = await this.petService.getPets();
-  console.log("this.pets-->" + this.pets);
 }
   onAddPet(): void {
     this.form.reset();
@@ -57,9 +56,10 @@ async loadPets() {
     this.action = Action.Delete;
   }
 
-  onSubmitPet() {
+  async onSubmitPet() {
     if (this.action === Action.Add) {
       this.pets.push(this.form.value); // TODO: POST to backend
+      this.pets = await this.petService.postPet(this.pets)
     } else if (this.action === Action.Edit) {
       this.pets[this.getSelectedPetIndex()] = this.form.value;
     }
