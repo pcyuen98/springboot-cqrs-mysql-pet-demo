@@ -5,9 +5,9 @@
 export const environment = {
   production: false,
 
-  keycloakURL: "http://localhost:8080",
+  keycloakURL: "https://belisty.com:8443",
   realm: "keycloak",
-  clientID: "angularfront",
+  clientID: "angularfrontlocal",
   redirect: "http://localhost:4200",
 
   spring_boot_test_url: "http://localhost:7090/demo/test/v1",

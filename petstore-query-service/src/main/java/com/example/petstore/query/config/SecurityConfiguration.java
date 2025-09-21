@@ -1,5 +1,4 @@
-package com.example.petstore.command.config;
-
+package com.example.petstore.query.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +22,7 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.cors().and().authorizeHttpRequests()
-		        .requestMatchers("/api/pets/write/v1/**").hasRole("admin")
+		        .requestMatchers("/api/pets/read/v1/**").hasRole("reader")
 				.requestMatchers(HttpMethod.GET, "/user/**", "/api/**").hasAuthority("SCOPE_profile")
 				.requestMatchers(HttpMethod.POST, "/api/**").hasAuthority("SCOPE_profile").anyRequest().authenticated()
 				.and().oauth2ResourceServer().jwt();

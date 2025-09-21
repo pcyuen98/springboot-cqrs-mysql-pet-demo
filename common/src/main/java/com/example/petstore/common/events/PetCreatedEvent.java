@@ -3,6 +3,9 @@ package com.example.petstore.common.events;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.Data;
+
+@Data
 public class PetCreatedEvent {
     private Long petId;
     private String name;
