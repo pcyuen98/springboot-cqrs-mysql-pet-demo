@@ -22,6 +22,46 @@
     </ion-button>
   </div>
 
+  <!-- Search Controls -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Search Pets</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <!-- Search by ID -->
+          <ion-col size="4">
+            <ion-item>
+              <ion-label position="floating">Search by ID</ion-label>
+              <ion-input #petId type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+
+          <!-- Status Dropdown -->
+          <ion-col size="4">
+            <ion-item>
+              <ion-label>Status</ion-label>
+              <ion-select placeholder="Select Status" (ionChange)="searchPetsByStatus($event.detail.value)">
+                <ion-select-option *ngFor="let s of petStatuses" [value]="s">{{ s }}</ion-select-option>
+              </ion-select>
+            </ion-item>  
+          </ion-col>
+
+          <!-- Search Button -->
+          <ion-col size="4" class="ion-text-right">
+            <ion-button color="primary" (click)="searchPetById(petId.value)">
+              <ion-icon name="search-outline" slot="start"></ion-icon>
+              Search
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+
+
   <!-- Pets List -->
   <ion-card *ngIf="pets.length">
     <ion-card-header>
@@ -74,6 +114,7 @@
 
       <!-- Add/Edit Form -->
       <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitPet()">
+        
         <ion-item>
           <ion-label position="floating">Name</ion-label>
           <ion-input type="text" formControlName="name"></ion-input>

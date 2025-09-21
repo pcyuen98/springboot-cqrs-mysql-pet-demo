@@ -36,6 +36,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
   ngOnInit(): void {
     this.loadPets();
     this.form = new FormGroup({
+      petId: new FormControl('', Validators.nullValidator),
       name: new FormControl('', Validators.required),
       categoryId: new FormControl(1, Validators.required),
       tagId: new FormControl(1, Validators.required),
@@ -66,6 +67,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
   async onEditPet(pet: Pet): Promise<void> {
     this.selectedPet = pet;
     this.form.patchValue({
+      petId: pet.petId,
       name: pet.name,
       categoryId: pet.category?.id ?? 1,
       tagId: pet.tags?.[0]?.id ?? 1,
@@ -85,6 +87,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     const formValue = this.form.value;
 
     const payload: Pet = {
+      petId: formValue.petId,
       name: formValue.name,
       status: formValue.status,
       category: { id: formValue.categoryId },
@@ -117,5 +120,14 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
 
   private getSelectedPetIndex(): number {
     return this.pets.findIndex((p) => p === this.selectedPet);
+  }
+
+  async searchPetById(id: number) {
+    const pet = await this.petService.getPetById(id);
+    this.pets = pet ? [pet] : [];
+  }
+
+  async searchPetsByStatus(status: string) {
+    this.pets = await this.petService.getPetsByStatus(status);
   }
 }

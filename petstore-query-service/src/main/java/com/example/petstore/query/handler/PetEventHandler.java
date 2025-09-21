@@ -28,6 +28,7 @@ public class PetEventHandler {
 	        PetCreatedEvent event = objectMapper.readValue(message, PetCreatedEvent.class);
 	        PetReadEntity pet = new PetReadEntity();
 	        pet.setId(event.getPetId());
+	        pet.setStatus(event.getStatus());
 	        pet.setData(message);
 	        petReadRepository.save(pet);
 

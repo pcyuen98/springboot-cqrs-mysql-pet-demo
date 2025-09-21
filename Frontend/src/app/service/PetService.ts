@@ -9,7 +9,7 @@ import { CommonHTTPService } from './CommonHTTPService';
     providedIn: 'root'
 })
 export class PetService {
-    private apiUrl = 'http://localhost:8082/pet/all';
+    private apiUrl = 'http://localhost:8082/pet/';
     private writeApiUrl = 'http://localhost:8081/pet';
 
     constructor(
@@ -17,7 +17,7 @@ export class PetService {
     ) { }
 
     async getPets(): Promise<Pet[]> {
-        const response = await this.httpCommonService.getResource(this.apiUrl);
+        const response = await this.httpCommonService.getResource(this.apiUrl + 'all');
 
         // response is the raw array with `id` + `data` string
         const pets: Pet[] = response.map((item: any) => {
@@ -43,5 +43,13 @@ export class PetService {
         return response as Pet;
     }
 
+    async getPetById(id: number): Promise<Pet | null> {
+        const response = await this.httpCommonService.getResource(`${this.apiUrl}${id}`);
+        return response ? JSON.parse(response.data) as Pet : null;
+    }
 
+    async getPetsByStatus(status: string): Promise<Pet[]> {
+        const response = await this.httpCommonService.getResource(`${this.apiUrl}findByStatus/${status}`);
+        return response.map((item: any) => JSON.parse(item.data) as Pet);
+    }
 }

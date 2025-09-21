@@ -16,13 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/pet/all")
+@RequestMapping("/pet")
 @Slf4j
 public class PetQueryController {
 
     private final PetQueryService petQueryService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<PetReadEntity> getAllPets() {
         log.info("Fetching all pets");
         return petQueryService.findAllPets();
