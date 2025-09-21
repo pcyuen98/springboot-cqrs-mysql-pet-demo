@@ -22,9 +22,9 @@ public class SecurityConfiguration {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.cors().and().authorizeHttpRequests()
-		        .requestMatchers("/api/pets/read/v1/**").hasRole("reader")
-				.requestMatchers(HttpMethod.GET, "/user/**", "/api/**").hasAuthority("SCOPE_profile")
-				.requestMatchers(HttpMethod.POST, "/api/**").hasAuthority("SCOPE_profile").anyRequest().authenticated()
+		        .requestMatchers("/pet**").hasRole("reader")
+				.requestMatchers(HttpMethod.GET, "/user/**", "/pet/**").hasAuthority("SCOPE_profile")
+				.requestMatchers(HttpMethod.POST, "/pet/**").hasAuthority("SCOPE_profile").anyRequest().authenticated()
 				.and().oauth2ResourceServer().jwt();
 
 		http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

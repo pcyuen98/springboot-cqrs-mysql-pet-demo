@@ -135,7 +135,7 @@ export class FeedbackComponent {
       feedback.userDTO = user
     }
 
-    await this.CommonHTTPService.putResource(
+    await this.CommonHTTPService.postResource(
       `${GlobalConstants.spring_boot_url}/feedback`, feedback
     );
 

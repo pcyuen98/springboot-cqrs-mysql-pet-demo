@@ -44,9 +44,9 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     });
   }
 
-    // 👇 expose enum values to template
+  // 👇 expose enum values to template
   petStatuses = Object.values(PetStatus);
-  
+
   /**
    * Helper function to render tags as a string in the template.
    */
@@ -63,7 +63,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     this.action = Action.Add;
   }
 
-  onEditPet(pet: Pet): void {
+  async onEditPet(pet: Pet): Promise<void> {
     this.selectedPet = pet;
     this.form.patchValue({
       name: pet.name,
@@ -73,6 +73,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
       photoUrl: pet.photoUrl
     });
     this.action = Action.Edit;
+
   }
 
   onDeletePet(pet: Pet): void {
@@ -97,6 +98,8 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     } else if (this.action === Action.Edit && this.selectedPet) {
       const index = this.getSelectedPetIndex();
       this.pets[index] = { ...this.selectedPet, ...payload };
+      await this.petService.putPet(payload);
+      await this.loadPets(); // always reload from backend to stay consistent
       // Optionally call PUT endpoint if backend supports update
     }
     this.action = Action.View;

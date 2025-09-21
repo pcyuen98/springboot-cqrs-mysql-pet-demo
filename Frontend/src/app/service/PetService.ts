@@ -9,8 +9,8 @@ import { CommonHTTPService } from './CommonHTTPService';
     providedIn: 'root'
 })
 export class PetService {
-    private apiUrl = 'http://localhost:8082/api/pets/read/v1';
-    private writeApiUrl = 'http://localhost:8081/api/pets/write/v1';
+    private apiUrl = 'http://localhost:8082/pet/all';
+    private writeApiUrl = 'http://localhost:8081/pet';
 
     constructor(
         private httpCommonService: CommonHTTPService,
@@ -29,10 +29,19 @@ export class PetService {
 
     async postPet(pet: Pet): Promise<Pet> {
         // Call the write API with POST and the Pet payload
+        const response = await this.httpCommonService.postResource(this.writeApiUrl, pet);
+
+        // Assuming the write API returns the created pet directly
+        return response as Pet;
+    }
+
+    async putPet(pet: Pet): Promise<Pet> {
+        // Call the write API with PUT and the Pet payload
         const response = await this.httpCommonService.putResource(this.writeApiUrl, pet);
 
         // Assuming the write API returns the created pet directly
         return response as Pet;
     }
+
 
 }

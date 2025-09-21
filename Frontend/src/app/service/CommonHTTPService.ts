@@ -59,7 +59,7 @@ export class CommonHTTPService {
  */
   public async handlePostRequest(title: string, message: string, url: string, body: any): Promise<void> {
     try {
-      const data = await this.putResource(url, body)
+      const data = await this.postResource(url, body)
       await this.commonService.openPopModal(title + " Successful", message, data);
     } catch (error) {
       await this.commonService.openPopModal(`Error ${title}`, 'Error Details', error);
@@ -117,9 +117,21 @@ export class CommonHTTPService {
   /**
    * Executes POST request with authorization header
    */
-  async putResource(resourceUrl: string, body: any): Promise<any> {
+  async postResource(resourceUrl: string, body: any): Promise<any> {
     try {
       return await firstValueFrom(this.http.post<any>(resourceUrl, body, { headers: this.headers }));
+    } catch (error) {
+      this.handleHttpError(error, 'POST', resourceUrl);
+      throw error;
+    }
+  }
+
+      /**
+   * Executes POST request with authorization header
+   */
+  async putResource(resourceUrl: string, body: any): Promise<any> {
+    try {
+      return await firstValueFrom(this.http.put<any>(resourceUrl, body, { headers: this.headers }));
     } catch (error) {
       this.handleHttpError(error, 'POST', resourceUrl);
       throw error;

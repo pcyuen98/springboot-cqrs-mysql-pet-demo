@@ -1,6 +1,7 @@
 package com.example.petstore.query.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class PetQueryService {
 
-    private final PetReadRepository petReadRepository;
+	private final PetReadRepository petReadRepository;
 
-    public List<PetReadEntity> findAllPets() {
-        return petReadRepository.findAll();
-    }
+	public List<PetReadEntity> findAllPets() {
+		return petReadRepository.findAll();
+	}
+
+	public Optional<PetReadEntity> findPetById(Long id) {
+		return petReadRepository.findById(id);
+	}
+
+	public List<PetReadEntity> findPetsByStatus(String status) {
+		return petReadRepository.findByStatus(status);
+	}
 }

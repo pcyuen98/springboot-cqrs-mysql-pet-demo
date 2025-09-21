@@ -109,7 +109,7 @@ export class AuthService {
   async loginBE(user: User): Promise<any> {
     let userBE
     try {
-      userBE = await this.commonHTTPService.putResource(
+      userBE = await this.commonHTTPService.postResource(
         `${GlobalConstants.spring_boot_url}/login`, user)
     } catch (error: any) {
       this.errorService.handleError("Error Logging to Backend", "Backend", error)
