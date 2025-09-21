@@ -1,0 +1,10 @@
+{
+  "name": "Keycloak Demo APP",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {
+      "enabled": false
+    }
+  },
+  "type": "angular"
+}

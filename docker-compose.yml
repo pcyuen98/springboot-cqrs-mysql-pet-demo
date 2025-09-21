@@ -1,9 +1,12 @@
 version: '3.8'
+
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:7.4.1
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - petstore-net
 
   kafka:
     image: confluentinc/cp-kafka:7.4.1
@@ -15,6 +18,8 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - petstore-net
 
   mysql-write:
     image: mysql:8.0
@@ -27,18 +32,8 @@ services:
       - "3306:3306"
     volumes:
       - write_db:/var/lib/mysql
-
-  mysql-read:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-      MYSQL_DATABASE: petstore_read
-      MYSQL_USER: petuser
-      MYSQL_PASSWORD: petpass
-    ports:
-      - "3307:3306"
-    volumes:
-      - read_db:/var/lib/mysql
+    networks:
+      - petstore-net
 
   petstore-command:
     build: ./petstore-command-service
@@ -50,19 +45,37 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-     - mysql-write
-     - kafka
+      - mysql-write
+      - kafka
+    networks:
+      - petstore-net
 
- # petstore-query:
- #   build: ./petstore-query-service
- #   environment:
-#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-read:3306/petstore_read
- #     SPRING_DATASOURCE_USERNAME: petuser
-  #    SPRING_DATASOURCE_PASSWORD: petpass
-  #    SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-  #  depends_on:
-  #    - mysql-read
-  #    - kafka
+  petstore-query:
+    build: ./petstore-query-service
+    environment:
+      SPRING_DATASOURCE_URL: mongodb://mongoadmin:mongopass@mongodb-read:27017/petstore_read?authSource=admin
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - "8082:8082"
+    depends_on:
+      - petstore-command
+      - mongodb-read
+      - kafka
+    networks:
+      - petstore-net
+ 
+  mongodb-read:
+    image: mongo:6.0
+    container_name: mongodb_read
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongoadmin
+      MONGO_INITDB_ROOT_PASSWORD: mongopass
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - petstore-net
 
   keycloak: 
     build: Keycloak
@@ -71,7 +84,13 @@ services:
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: adminpass
-      
+    networks:
+      - petstore-net
+
 volumes:
   write_db:
-  read_db:
+  mongo_data:
+
+networks:
+  petstore-net:
+    driver: bridge

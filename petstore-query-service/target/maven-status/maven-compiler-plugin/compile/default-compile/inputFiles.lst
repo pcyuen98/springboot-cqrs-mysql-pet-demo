@@ -1,5 +1,5 @@
 D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\controller\PetQueryController.java
 D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\handler\PetEventHandler.java
-D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\model\Pet.java
-D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\PetstoreQueryApplication.java
-D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\repository\PetRepository.java
+D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\model\PetReadEntity.java
+D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\petstore\query\repository\PetReadRepository.java
+D:\workspace\springboot-cqrs-mysql-pet-demo\petstore-query-service\src\main\java\com\example\PetstoreQueryApplication.java

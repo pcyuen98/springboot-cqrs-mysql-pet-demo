@@ -1,5 +1,5 @@
-com\example\petstore\query\model\Pet.class
-com\example\petstore\query\PetstoreQueryApplication.class
-com\example\petstore\query\repository\PetRepository.class
+com\example\PetstoreQueryApplication.class
+com\example\petstore\query\model\PetReadEntity.class
+com\example\petstore\query\repository\PetReadRepository.class
 com\example\petstore\query\handler\PetEventHandler.class
 com\example\petstore\query\controller\PetQueryController.class

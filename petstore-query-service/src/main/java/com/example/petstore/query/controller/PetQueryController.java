@@ -1,22 +1,15 @@
 package com.example.petstore.query.controller;
 
-import com.example.petstore.query.model.Pet;
-import com.example.petstore.query.repository.PetRepository;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/pets")
+@RequestMapping("/api/pets/read/v1")
+@Slf4j
 public class PetQueryController {
-    private final PetRepository repository;
 
-    public PetQueryController(PetRepository repository) {
-        this.repository = repository;
-    }
-
-    @GetMapping
-    public List<Pet> listPets() {
-        return repository.findAll();
-    }
 }
