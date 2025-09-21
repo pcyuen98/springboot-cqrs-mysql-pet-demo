@@ -5,36 +5,44 @@
   <!-- Page Header -->
   <ion-text class="ion-text-center">
     <h1 class="ion-margin-top ion-margin-bottom" style="font-weight: bold; font-size: 2rem; color: #2563eb;">
-      <ion-icon name="car-outline" style="font-size: 2.5rem; vertical-align: middle; margin-right: 8px;"></ion-icon>
-      Cars Management
+      <ion-icon name="paw-outline" style="font-size: 2.5rem; vertical-align: middle; margin-right: 8px;"></ion-icon>
+      Pets Management
     </h1>
   </ion-text>
 
-  <!-- Add Car Button -->
+  <!-- Add Pet Button -->
   <div class="ion-text-center ion-margin-bottom">
-    <ion-button expand="block" color="primary" shape="round" (click)="onAddCar()">
+    <ion-button expand="block" color="primary" shape="round" (click)="onAddPet()">
       <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-      Add New Car
+      Add New Pet
     </ion-button>
   </div>
 
-  <!-- Cars Table -->
-  <ion-card *ngIf="cars.length">
+  <!-- Search/Reload Button -->
+<div class="ion-text-center ion-margin-bottom">
+  <ion-button expand="block" color="secondary" (click)="loadPets()">
+    <ion-icon name="refresh-outline" slot="start"></ion-icon>
+    Reload Pets
+  </ion-button>
+</div>
+
+  <!-- Pets List -->
+  <ion-card *ngIf="pets.length">
     <ion-card-header>
-      <ion-card-title>Car List</ion-card-title>
+      <ion-card-title>Pet List</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <ion-list>
-        <ion-item *ngFor="let car of cars; let i = index">
+        <ion-item *ngFor="let pet of pets; let i = index">
           <ion-label>
-            <h2>#{{ i + 1 }} - {{ car.brand }} {{ car.model }}</h2>
-            <p>Year: {{ car.year }}</p>
+            <h2>#{{ pet.petId}} - {{ pet.name }} ({{ pet.type }})</h2>
+            <p>Status: {{ pet.status }}</p>
           </ion-label>
           <ion-buttons slot="end">
-            <ion-button fill="clear" color="primary" (click)="onEditCar(car)">
+            <ion-button fill="clear" color="primary" (click)="onEditPet(pet)">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
             </ion-button>
-            <ion-button fill="clear" color="danger" (click)="onDeleteCar(car)">
+            <ion-button fill="clear" color="danger" (click)="onDeletePet(pet)">
               <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
             </ion-button>
           </ion-buttons>
@@ -47,24 +55,24 @@
   <ion-card *ngIf="action !== actions.View">
     <ion-card-header>
       <ion-card-title class="ion-text-center">
-        {{ action === actions.Add ? 'Add New Car' : (action === actions.Edit ? 'Edit Car' : 'Delete Car') }}
+        {{ action === actions.Add ? 'Add New Pet' : (action === actions.Edit ? 'Edit Pet' : 'Delete Pet') }}
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
 
       <!-- Add/Edit Form -->
-      <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitCar()">
+      <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitPet()">
         <ion-item>
-          <ion-label position="floating">Brand</ion-label>
-          <ion-input type="text" formControlName="brand"></ion-input>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Model</ion-label>
-          <ion-input type="text" formControlName="model"></ion-input>
+          <ion-label position="floating">Type</ion-label>
+          <ion-input type="text" formControlName="type"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Year</ion-label>
-          <ion-input type="number" formControlName="year"></ion-input>
+          <ion-label position="floating">Status</ion-label>
+          <ion-input type="text" formControlName="status"></ion-input>
         </ion-item>
 
         <div class="ion-text-center ion-margin-top">
@@ -74,13 +82,14 @@
       </form>
 
       <!-- Delete Confirmation -->
-      <div *ngIf="action === actions.Delete && selectedCar" class="ion-text-center">
+      <div *ngIf="action === actions.Delete && selectedPet" class="ion-text-center">
         <p class="ion-margin-top">
-          You are about to delete <strong>{{ selectedCar.brand }} {{ selectedCar.model }} ({{ selectedCar.year }})</strong>.
+          You are about to delete
+          <strong>{{ selectedPet.name }} ({{ selectedPet.type }})</strong>.
         </p>
         <p class="ion-margin-bottom"><strong>Are you sure?</strong></p>
         <div>
-          <ion-button color="danger" (click)="deleteCar()">Delete</ion-button>
+          <ion-button color="danger" (click)="deletePet()">Delete</ion-button>
           <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
         </div>
       </div>

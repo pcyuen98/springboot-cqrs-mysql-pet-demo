@@ -1,12 +1,8 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Pet } from '../models/pet.model';
 import { PageBaseComponent } from '../util/page-base.component';
-
-type Car = {
-  brand: string;
-  model: string;
-  year: number;
-};
+import { PetService } from '../service/PetService';
 
 enum Action {
   View = 'VIEW',
@@ -17,95 +13,70 @@ enum Action {
 
 @Component({
   selector: 'app-reader',
-  templateUrl: './reader.page.html',
-  styleUrls: ['./reader.page.css']
+  templateUrl: 'reader.page.html',
+  styleUrls: ['reader.page.css']
 })
 export class ReaderPage extends PageBaseComponent implements OnInit {
-  cars: Car[] = [];
-  selectedCar?: Car = undefined;
-  action: Action;
-  actions: typeof Action = Action;
+  pets: any;
+  selectedPet?: Pet;
+  action: Action = Action.View;
+  actions = Action;
   form: FormGroup;
 
-  constructor(injector: Injector) {
+  constructor(injector: Injector, private petService: PetService) {
     super(injector);
   }
 
   ngOnInit(): void {
-    this.cars = [
-      { brand: 'Audi', model: 'A4', year: 2018 },
-      { brand: 'BMW', model: '3 Series', year: 2015 },
-      { brand: 'Mercedes-Benz', model: 'C Klasse', year: 2016 }
-    ];
-    this.action = Action.View;
+    this.loadPets();
+
     this.form = new FormGroup({
-      brand: new FormControl('', Validators.required),
-      model: new FormControl('', Validators.required),
-      year: new FormControl('', [
-        Validators.required,
-        Validators.min(1900),
-        Validators.max(new Date().getFullYear())
-      ])
+      name: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required),
+      status: new FormControl('', Validators.required),
     });
   }
 
-  onAddCar(): void {
+async loadPets() {
+  this.pets = await this.petService.getPets();
+  console.log("this.pets-->" + this.pets);
+}
+  onAddPet(): void {
     this.form.reset();
     this.action = Action.Add;
   }
 
-  onEditCar(car: Car): void {
-    this.selectedCar = car;
-    this.form.patchValue(car);
+  onEditPet(pet: Pet): void {
+    this.selectedPet = pet;
+    this.form.patchValue(pet);
     this.action = Action.Edit;
   }
 
-  onDeleteCar(car: Car): void {
-    this.selectedCar = car;
+  onDeletePet(pet: Pet): void {
+    this.selectedPet = pet;
     this.action = Action.Delete;
   }
 
-  onSubmitCar(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
+  onSubmitPet() {
     if (this.action === Action.Add) {
-      this.addCar();
+      this.pets.push(this.form.value); // TODO: POST to backend
     } else if (this.action === Action.Edit) {
-      this.editCar();
-    }
-
-    this.cancel();
-  }
-
-  addCar(): void {
-    this.cars.push(this.form.value);
-    this.action = Action.View;
-  }
-
-  editCar(): void {
-    if (this.selectedCar) {
-      this.cars[this.getSelectedCarIndex()] = this.form.value;
+      this.pets[this.getSelectedPetIndex()] = this.form.value;
     }
     this.action = Action.View;
   }
 
-  deleteCar(): void {
-    if (this.selectedCar) {
-      this.cars.splice(this.getSelectedCarIndex(), 1);
-    }
+  deletePet(): void {
+    this.pets.splice(this.getSelectedPetIndex(), 1);
     this.action = Action.View;
   }
 
   cancel(): void {
-    this.selectedCar = undefined;
+    this.selectedPet = undefined;
     this.action = Action.View;
-    this.form.reset();
   }
 
-  private getSelectedCarIndex(): number {
-    return this.cars.findIndex(car => car === this.selectedCar);
+  private getSelectedPetIndex(): number {
+    return this.pets.findIndex((p: Pet | undefined) => p === this.selectedPet);
   }
 }

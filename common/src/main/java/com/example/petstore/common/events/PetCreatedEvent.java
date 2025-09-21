@@ -23,14 +23,4 @@ public class PetCreatedEvent {
         this.status = status;
     }
 
-    public PetCreatedEvent() {}
-
-    public Long getPetId() { return petId; }
-    public void setPetId(Long petId) { this.petId = petId; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getType() { return type; }
-    public void setType(String type) { this.type = type; }
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
 }
