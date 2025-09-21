@@ -122,9 +122,17 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     return this.pets.findIndex((p) => p === this.selectedPet);
   }
 
-  async searchPetById(id: number) {
-    const pet = await this.petService.getPetById(id);
-    this.pets = pet ? [pet] : [];
+  async search(id: number) {
+  const numId = Number(id);
+
+  if (!isNaN(numId) && numId > 0) {
+      const pet = await this.petService.getPetById(id);
+      this.pets = pet ? [pet] : [];
+    }
+    else {
+      this.pets = await this.petService.getPets();
+    }
+
   }
 
   async searchPetsByStatus(status: string) {
