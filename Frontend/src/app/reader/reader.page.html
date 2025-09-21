@@ -2,22 +2,21 @@
 
 <ion-content class="ion-padding">
 
-  <ion-item>
-
-      <!-- Add & Reload Buttons -->
-  <div class="ion-margin-bottom">
+  <!-- Header & Actions -->
+  <div class="ion-padding">
     <ion-grid>
-      <ion-row>
-                <ion-col size="6">
-      <h1 class="ion-margin-top ion-margin-bottom" style="font-weight: bold; font-size: 2rem; color: #2563eb;">
-        <ion-icon name="paw-outline" style="font-size: 2.5rem; vertical-align: middle; margin-right: 8px;"></ion-icon>
-        Pets Management
-      </h1>
-            <ion-button expand="block" color="primary" (click)="onAddPet()">
-        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-        Add New Pet
-      </ion-button>
+      <ion-row class="ion-align-items-center">
+
+        <!-- Title -->
+        <ion-col size="6">
+          <h1 class="ion-margin-top ion-margin-bottom" style="font-weight: bold; font-size: 2rem; color: #2563eb;">
+            <ion-icon name="paw-outline" style="font-size: 2.5rem; vertical-align: middle; margin-right: 8px;">
+            </ion-icon>
+            Pets Management
+          </h1>
         </ion-col>
+
+        <!-- Search by ID -->
         <ion-col size="2">
           <ion-item>
             <ion-label position="floating">Search by ID</ion-label>
@@ -29,25 +28,28 @@
         <ion-col size="2">
           <ion-item>
             <ion-select placeholder="Select Status" (ionChange)="searchPetsByStatus($event.detail.value)">
-              <ion-select-option *ngFor="let s of petStatuses" [value]="s">{{ s }}</ion-select-option>
+              <ion-select-option *ngFor="let s of petStatuses" [value]="s">
+                {{ s }}
+              </ion-select-option>
             </ion-select>
           </ion-item>
         </ion-col>
 
-        <!-- Search Button -->
+        <!-- Buttons -->
         <ion-col size="2" class="ion-text-right">
           <ion-button color="primary" (click)="search(petId.value)">
             <ion-icon name="search-outline" slot="start"></ion-icon>
             Search
+          </ion-button>
+          <ion-button color="success" (click)="onAddPet()">
+            <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+            Add Pet
           </ion-button>
         </ion-col>
 
       </ion-row>
     </ion-grid>
   </div>
-
-  
-  </ion-item>
 
 
 
@@ -154,27 +156,3 @@
 </ion-content>
 
 <app-footer></app-footer>
-
-<style>
-  .pet-row-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .pet-id {
-    font-weight: bold;
-    color: #2563eb;
-  }
-
-  .pet-name {
-    font-weight: bold;
-  }
-
-  .pet-category,
-  .pet-tags {
-    font-size: 0.9rem;
-    color: #555;
-  }
-</style>
