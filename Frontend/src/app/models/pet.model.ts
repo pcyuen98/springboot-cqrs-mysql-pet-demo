@@ -9,5 +9,5 @@ export interface Pet {
   tags: Array<{
     id: number;
   }>;
-  photoUrl: string[]; // backend expects array
+  photoUrl: string; // backend expects array
 }

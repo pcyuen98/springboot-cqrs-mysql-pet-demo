@@ -7,13 +7,14 @@
       <a class="font-link" href="https://belisty.com/" target="_blank" rel="noopener noreferrer">
         <b>&nbsp;Belisty AI News&nbsp;</b>
       </a>
-       for sharing and future reusability purposes
+      for sharing and future reusability purposes
       <br>
       <a class="font-link" href="assets/doc/spring-boot-keycloak-mysql-demo-guide.pdf" target="_blank">
         <b>&nbsp;Documentation&nbsp;</b> |
       </a>
       <b (click)="openSlideModal()" class="font-link">&nbsp;Feedback&nbsp;</b> |
-      <a class="font-link" href="https://github.com/pcyuen98/spring-boot-keycloak-mysql-demo" target="_blank" rel="noopener noreferrer">
+      <a class="font-link" href="https://github.com/pcyuen98/spring-boot-keycloak-mysql-demo" target="_blank"
+        rel="noopener noreferrer">
         <b>&nbsp;GIT HUB&nbsp;</b>
       </a>
     </blockquote>
@@ -21,5 +22,10 @@
 
   <ion-card *ngIf="getGlobalError()">
     <app-util-error-be #errorBEComponent [errorApp]="getGlobalError()" [pageBaseComponent]="this"></app-util-error-be>
+  </ion-card>
+
+  <ion-card *ngIf="getGlobalSuccess()">
+    <app-util-success-be #successBEComponent [pageBaseComponent]="this"></app-util-success-be>
+
   </ion-card>
 </ion-footer>

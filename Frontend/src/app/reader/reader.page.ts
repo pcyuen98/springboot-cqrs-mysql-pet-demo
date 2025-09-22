@@ -1,15 +1,11 @@
 import { Component, OnInit, Injector } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 import { Pet } from '../models/pet.model';
 import { PageBaseComponent } from '../util/page-base.component';
 import { PetService } from '../service/PetService';
-
-enum Action {
-  View = 'VIEW',
-  Add = 'ADD',
-  Edit = 'EDIT',
-  Delete = 'DELETE'
-}
+import { WriterPage } from '../writer/writer.page';
+import { Action } from '../models/pet.action';
 
 export enum PetStatus {
   AVAILABLE = 'AVAILABLE',
@@ -29,12 +25,15 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
   actions = Action;
   form: FormGroup;
 
-  constructor(injector: Injector, private petService: PetService) {
-    super(injector);
-  }
+  petStatuses = Object.values(PetStatus);
 
-  ngOnInit(): void {
-    this.loadPets();
+  constructor(
+    injector: Injector,
+    private petService: PetService,
+    private modalCtrl: ModalController
+  ) {
+    super(injector);
+
     this.form = new FormGroup({
       petId: new FormControl('', Validators.nullValidator),
       name: new FormControl('', Validators.required),
@@ -45,97 +44,77 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     });
   }
 
-  // 👇 expose enum values to template
-  petStatuses = Object.values(PetStatus);
+  ngOnInit(): void {
+    this.loadPets();
+  }
 
-  /**
-   * Helper function to render tags as a string in the template.
-   */
   getTagIds(pet: Pet): string {
     return pet.tags?.map(t => t.id).join(', ') || 'No tags';
   }
 
-  async loadPets() {
+  async loadPets(): Promise<void> {
     this.pets = await this.petService.getPets();
   }
 
-  onAddPet(): void {
-    this.form.reset({ categoryId: 1, tagId: 1 });
-    this.action = Action.Add;
+  private async openPetModal(
+    action: Action,
+    pet?: Pet
+  ): Promise<void> {
+    if (action === Action.Add) {
+      this.form.reset({ categoryId: 1, tagId: 1 });
+    } else if (pet) {
+      this.form.patchValue({
+        petId: pet.petId,
+        name: pet.name,
+        categoryId: pet.category?.id ?? 1,
+        tagId: pet.tags?.[0]?.id ?? 1,
+        status: pet.status,
+        photoUrl: pet.photoUrl
+      });
+    }
+
+    const modal = await this.modalCtrl.create({
+      component: WriterPage,
+      componentProps: { action, form: this.form, selectedPet: pet || null }
+    });
+
+    await modal.present();
+
+    const result = await modal.onDidDismiss();
+
+    if (result.role === Action.Cancel) {
+      console.log('Modal cancelled');
+      return;
+    }
+    else {
+      await this.loadPets();
+    }
+
+  }
+
+  async onAddPet(): Promise<void> {
+    await this.openPetModal(Action.Add);
   }
 
   async onEditPet(pet: Pet): Promise<void> {
-    this.selectedPet = pet;
-    this.form.patchValue({
-      petId: pet.petId,
-      name: pet.name,
-      categoryId: pet.category?.id ?? 1,
-      tagId: pet.tags?.[0]?.id ?? 1,
-      status: pet.status,
-      photoUrl: pet.photoUrl
-    });
-    this.action = Action.Edit;
-
+    await this.openPetModal(Action.Edit, pet);
   }
 
-  onDeletePet(pet: Pet): void {
-    this.selectedPet = pet;
-    this.action = Action.Delete;
+  async onDeletePet(pet: Pet): Promise<void> {
+    await this.openPetModal(Action.Delete, pet);
   }
 
-  async onSubmitPet() {
-    const formValue = this.form.value;
-
-    const payload: Pet = {
-      petId: formValue.petId,
-      name: formValue.name,
-      status: formValue.status,
-      category: { id: formValue.categoryId },
-      tags: [{ id: formValue.tagId }],
-      photoUrl: formValue.photoUrl
-    };
-
-    if (this.action === Action.Add) {
-      await this.petService.postPet(payload);
-      await this.loadPets(); // always reload from backend to stay consistent
-    } else if (this.action === Action.Edit && this.selectedPet) {
-      const index = this.getSelectedPetIndex();
-      this.pets[index] = { ...this.selectedPet, ...payload };
-      await this.petService.putPet(payload);
-      await this.loadPets(); // always reload from backend to stay consistent
-      // Optionally call PUT endpoint if backend supports update
-    }
-    this.action = Action.View;
-  }
-
-  deletePet(): void {
-    this.pets.splice(this.getSelectedPetIndex(), 1);
-    this.action = Action.View;
-  }
-
-  cancel(): void {
-    this.selectedPet = undefined;
-    this.action = Action.View;
-  }
-
-  private getSelectedPetIndex(): number {
-    return this.pets.findIndex((p) => p === this.selectedPet);
-  }
-
-  async search(id: number) {
-  const numId = Number(id);
-
-  if (!isNaN(numId) && numId > 0) {
-      const pet = await this.petService.getPetById(id);
+  async search(id: number): Promise<void> {
+    const numId = Number(id);
+    if (!isNaN(numId) && numId > 0) {
+      const pet = await this.petService.getPetById(numId);
       this.pets = pet ? [pet] : [];
+    } else {
+      await this.loadPets();
     }
-    else {
-      this.pets = await this.petService.getPets();
-    }
-
   }
 
-  async searchPetsByStatus(status: string) {
+  async searchPetsByStatus(status: string): Promise<void> {
     this.pets = await this.petService.getPetsByStatus(status);
   }
 }

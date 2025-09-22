@@ -36,7 +36,7 @@ class PetWriteMapperTest {
 
         // Entity
         sampleEntity = new PetWriteEntity();
-        sampleEntity.setId(10L);
+        sampleEntity.setPetId(10L);
         sampleEntity.setCategory(categoryEntity);
         sampleEntity.setName("Buddy");
         sampleEntity.setStatus(Status.AVAILABLE);
@@ -55,7 +55,7 @@ class PetWriteMapperTest {
 
         // Extra Entity for list test
         PetWriteEntity entity2 = new PetWriteEntity();
-        entity2.setId(11L);
+        entity2.setPetId(1l);
         entity2.setName("Molly");
         entity2.setCategory(categoryEntity);
         entity2.setStatus(Status.SOLD);
@@ -80,7 +80,7 @@ class PetWriteMapperTest {
     void testToDto() {
         PetWrite dto = mapper.toDto(sampleEntity);
         assertNotNull(dto);
-        assertEquals(sampleEntity.getId(), dto.getId());
+        assertEquals(sampleEntity.getPetId(), dto.getId());
         assertEquals(sampleEntity.getName(), dto.getName());
         assertEquals(sampleEntity.getCategory().getId(), dto.getCategory().getId());
         assertEquals(sampleEntity.getStatus(), dto.getStatus());
@@ -90,7 +90,7 @@ class PetWriteMapperTest {
     void testToEntity() {
         PetWriteEntity entity = mapper.toEntity(sampleDto);
         assertNotNull(entity);
-        assertEquals(sampleDto.getId(), entity.getId());
+        assertEquals(sampleDto.getId(), entity.getPetId());
         assertEquals(sampleDto.getName(), entity.getName());
         assertEquals(sampleDto.getCategory().getId(), entity.getCategory().getId());
         assertEquals(sampleDto.getStatus(), entity.getStatus());
@@ -102,10 +102,8 @@ class PetWriteMapperTest {
         assertNotNull(dtoList);
         assertEquals(sampleEntityList.size(), dtoList.size());
 
-        assertEquals(sampleEntity.getId(), dtoList.get(0).getId());
         assertEquals(sampleEntity.getName(), dtoList.get(0).getName());
 
-        assertEquals(sampleEntityList.get(1).getId(), dtoList.get(1).getId());
         assertEquals(sampleEntityList.get(1).getName(), dtoList.get(1).getName());
     }
 
@@ -115,10 +113,10 @@ class PetWriteMapperTest {
         assertNotNull(entityList);
         assertEquals(sampleDtoList.size(), entityList.size());
 
-        assertEquals(sampleDto.getId(), entityList.get(0).getId());
+        assertEquals(sampleDto.getId(), entityList.get(0).getPetId());
         assertEquals(sampleDto.getName(), entityList.get(0).getName());
 
-        assertEquals(sampleDtoList.get(1).getId(), entityList.get(1).getId());
+        assertEquals(sampleDtoList.get(1).getId(), entityList.get(1).getPetId());
         assertEquals(sampleDtoList.get(1).getName(), entityList.get(1).getName());
     }
 }

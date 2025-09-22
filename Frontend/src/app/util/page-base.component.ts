@@ -59,6 +59,10 @@ export class PageBaseComponent {
         GlobalConstants.globalBEError = undefined
     }
 
+    public clearSuccessMessage(): void {
+        GlobalConstants.globalBESuccess = undefined
+    }
+
     // --- UI Actions ---
     protected async openSlideModal(): Promise<void> {
         if (!this.userService.isLogin()) {
@@ -74,6 +78,10 @@ export class PageBaseComponent {
 
     getGlobalError(): any | undefined {
         return GlobalConstants.globalBEError || undefined;
+    }
+
+    getGlobalSuccess(): any | undefined {
+        return GlobalConstants.globalBESuccess || undefined;
     }
 }
 

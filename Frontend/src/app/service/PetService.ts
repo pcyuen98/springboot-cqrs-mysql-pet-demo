@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Pet } from '../models/pet.model';
 import { CommonHTTPService } from './CommonHTTPService';
+import { GlobalConstants } from 'src/environments/GlobalConstants';
 
 @Injectable({
     providedIn: 'root'
@@ -30,7 +31,7 @@ export class PetService {
     async postPet(pet: Pet): Promise<Pet> {
         // Call the write API with POST and the Pet payload
         const response = await this.httpCommonService.postResource(this.writeApiUrl, pet);
-
+        GlobalConstants.globalBESuccess = "Pet Added Successfully"
         // Assuming the write API returns the created pet directly
         return response as Pet;
     }
@@ -38,7 +39,7 @@ export class PetService {
     async putPet(pet: Pet): Promise<Pet> {
         // Call the write API with PUT and the Pet payload
         const response = await this.httpCommonService.putResource(this.writeApiUrl, pet);
-
+        GlobalConstants.globalBESuccess = "Pet Updated Successfully"
         // Assuming the write API returns the created pet directly
         return response as Pet;
     }

@@ -3,10 +3,9 @@
 <ion-content class="ion-padding">
 
   <!-- Header & Actions -->
-  <div class="ion-padding">
+  <div>
     <ion-grid>
       <ion-row class="ion-align-items-center">
-
         <!-- Title -->
         <ion-col size="6">
           <h1 class="ion-margin-top ion-margin-bottom" style="font-weight: bold; font-size: 2rem; color: #2563eb;">
@@ -50,12 +49,6 @@
       </ion-row>
     </ion-grid>
   </div>
-
-
-
-
-
-
   <!-- Pets List -->
   <ion-card *ngIf="pets.length">
     <ion-card-content>
@@ -91,65 +84,6 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Add/Edit/Delete Form -->
-  <ion-card *ngIf="action !== actions.View">
-    <ion-card-header>
-      <ion-card-title class="ion-text-center">
-        {{ action === actions.Add ? 'Add New Pet' : (action === actions.Edit ? 'Edit Pet' : 'Delete Pet') }}
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-
-      <!-- Add/Edit Form -->
-      <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitPet()">
-
-        <ion-item>
-          <ion-label position="floating">Name</ion-label>
-          <ion-input type="text" formControlName="name"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Category ID</ion-label>
-          <ion-input type="number" formControlName="categoryId"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Tag ID</ion-label>
-          <ion-input type="number" formControlName="tagId"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Status</ion-label>
-          <ion-select formControlName="status" interface="popover" placeholder="Select Status">
-            <ion-select-option *ngFor="let s of petStatuses" [value]="s">
-              {{ s }}
-            </ion-select-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Photo URL</ion-label>
-          <ion-input type="text" formControlName="photoUrl"></ion-input>
-        </ion-item>
-
-        <div class="ion-text-center ion-margin-top">
-          <ion-button type="submit" [disabled]="form.invalid" color="primary">Save</ion-button>
-          <ion-button type="button" color="medium" (click)="cancel()">Cancel</ion-button>
-        </div>
-      </form>
-
-      <!-- Delete Confirmation -->
-      <div *ngIf="action === actions.Delete && selectedPet" class="ion-text-center">
-        <p class="ion-margin-top">
-          You are about to delete
-          <strong>{{ selectedPet.name }} (ID: {{ selectedPet.petId ?? 'N/A' }})</strong>.
-        </p>
-        <p class="ion-margin-bottom"><strong>Are you sure?</strong></p>
-        <div>
-          <ion-button color="danger" (click)="deletePet()">Delete</ion-button>
-          <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
-        </div>
-      </div>
-
     </ion-card-content>
   </ion-card>
 

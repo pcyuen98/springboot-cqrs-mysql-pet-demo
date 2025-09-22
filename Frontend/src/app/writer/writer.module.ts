@@ -6,17 +6,16 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HeaderModule } from '../shared-modules/header/header.module';
 import { ModelPopModule } from '../shared-modules/modal-pop/modal-pop.module';
 import { ModelPopArrayModule } from '../shared-modules/modal-pop-array/modal-pop-array.module';
-import { ReaderPage } from './reader.page';
-import { ReaderPageRoutingModule } from './reader-routing.module';
 import { FooterModule } from '../shared-modules/footer/footer.module';
-import { BrowserModule } from '@angular/platform-browser';
-import { WriterPageModule } from '../writer/writer.module';
+import { WriterPage } from './writer.page';
+import { WriterPageRoutingModule } from './writer-routing.module';
 
 @NgModule({
-  imports: [CommonModule, IonicModule, HeaderModule, ReaderPageRoutingModule, ReactiveFormsModule,
+  imports: [CommonModule, IonicModule, HeaderModule, WriterPageRoutingModule, ReactiveFormsModule,
     ModelPopModule, ModelPopArrayModule, ReactiveFormsModule, CommonModule
-    , FooterModule, NgOptimizedImage, WriterPageModule],
-  declarations: [ ReaderPage],
+    , FooterModule, NgOptimizedImage],
+  declarations: [ WriterPage],
+  exports: [WriterPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class ReaderPageModule {}
+export class WriterPageModule {}

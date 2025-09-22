@@ -16,4 +16,5 @@ export class GlobalConstants {
   public static spring_boot_url: string = environment.spring_boot_url
 
   public static globalBEError: any;
+  public static globalBESuccess: any;
 }
