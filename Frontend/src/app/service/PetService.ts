@@ -31,7 +31,6 @@ export class PetService {
     async postPet(pet: Pet): Promise<Pet> {
         // Call the write API with POST and the Pet payload
         const response = await this.httpCommonService.postResource(this.writeApiUrl, pet);
-        GlobalConstants.globalBESuccess = "Pet Added Successfully"
         // Assuming the write API returns the created pet directly
         return response as Pet;
     }
@@ -39,7 +38,6 @@ export class PetService {
     async putPet(pet: Pet): Promise<Pet> {
         // Call the write API with PUT and the Pet payload
         const response = await this.httpCommonService.putResource(this.writeApiUrl, pet);
-        GlobalConstants.globalBESuccess = "Pet Updated Successfully"
         // Assuming the write API returns the created pet directly
         return response as Pet;
     }

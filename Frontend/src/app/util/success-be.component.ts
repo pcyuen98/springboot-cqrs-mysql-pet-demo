@@ -13,7 +13,7 @@ import { GlobalConstants } from 'src/environments/GlobalConstants';
     <ion-toolbar>
       <!-- Left aligned title -->
       <ion-title>
-        <b>Success</b>
+        <b style="color: green;">Success</b>
       </ion-title>
 
       <!-- Right aligned buttons -->

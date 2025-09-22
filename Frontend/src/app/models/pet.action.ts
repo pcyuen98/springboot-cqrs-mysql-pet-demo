@@ -6,5 +6,6 @@ export enum Action {
   Delete = 'DELETE',
   Cancel = 'CANCEL',
   Submitted = 'SUBMITTED',
+  Error = 'ERROR'
 
 }

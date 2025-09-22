@@ -24,7 +24,7 @@ public class PetWriteEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "photo_url", nullable = false)
+    @Column(name = "photo_url", nullable = false, length = 500)
     private String photoUrl;
 
     @ManyToMany
@@ -37,5 +37,8 @@ public class PetWriteEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;   
+    private Status status;
+    
+    @Column(length = 2000, nullable = false)
+    private String description;   
 }

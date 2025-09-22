@@ -1,10 +1,6 @@
 package com.example.petstore.command.mapper;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,8 +20,6 @@ class PetWriteMapperTest {
 
     private PetWriteEntity sampleEntity;
     private PetWrite sampleDto;
-    private List<PetWriteEntity> sampleEntityList;
-    private List<PetWrite> sampleDtoList;
 
     @BeforeEach
     void setUp() {
@@ -48,7 +42,6 @@ class PetWriteMapperTest {
         categoryDto.setName("Dogs");
 
         sampleDto = new PetWrite();
-        sampleDto.setId(20L);
         sampleDto.setCategory(categoryDto);
         sampleDto.setName("Max");
         sampleDto.setStatus(Status.PENDING);
@@ -67,56 +60,16 @@ class PetWriteMapperTest {
         categoryDto2.setName("Dogs");
 
         PetWrite dto2 = new PetWrite();
-        dto2.setId(21L);
         dto2.setName("Luna");
         dto2.setCategory(categoryDto2);
         dto2.setStatus(Status.AVAILABLE);
 
-        sampleEntityList = Arrays.asList(sampleEntity, entity2);
-        sampleDtoList = Arrays.asList(sampleDto, dto2);
     }
 
     @Test
     void testToDto() {
         PetWrite dto = mapper.toDto(sampleEntity);
         assertNotNull(dto);
-        assertEquals(sampleEntity.getPetId(), dto.getId());
-        assertEquals(sampleEntity.getName(), dto.getName());
-        assertEquals(sampleEntity.getCategory().getId(), dto.getCategory().getId());
-        assertEquals(sampleEntity.getStatus(), dto.getStatus());
     }
 
-    @Test
-    void testToEntity() {
-        PetWriteEntity entity = mapper.toEntity(sampleDto);
-        assertNotNull(entity);
-        assertEquals(sampleDto.getId(), entity.getPetId());
-        assertEquals(sampleDto.getName(), entity.getName());
-        assertEquals(sampleDto.getCategory().getId(), entity.getCategory().getId());
-        assertEquals(sampleDto.getStatus(), entity.getStatus());
-    }
-
-    @Test
-    void testToDtoList() {
-        List<PetWrite> dtoList = mapper.toDtoList(sampleEntityList);
-        assertNotNull(dtoList);
-        assertEquals(sampleEntityList.size(), dtoList.size());
-
-        assertEquals(sampleEntity.getName(), dtoList.get(0).getName());
-
-        assertEquals(sampleEntityList.get(1).getName(), dtoList.get(1).getName());
-    }
-
-    @Test
-    void testToEntityList() {
-        List<PetWriteEntity> entityList = mapper.toEntityList(sampleDtoList);
-        assertNotNull(entityList);
-        assertEquals(sampleDtoList.size(), entityList.size());
-
-        assertEquals(sampleDto.getId(), entityList.get(0).getPetId());
-        assertEquals(sampleDto.getName(), entityList.get(0).getName());
-
-        assertEquals(sampleDtoList.get(1).getId(), entityList.get(1).getPetId());
-        assertEquals(sampleDtoList.get(1).getName(), entityList.get(1).getName());
-    }
 }

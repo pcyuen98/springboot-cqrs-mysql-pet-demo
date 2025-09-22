@@ -6,10 +6,14 @@ import { PetService } from '../service/PetService';
 import { PetStatus } from '../reader/reader.page';
 import { ModalController } from '@ionic/angular';
 import { Action } from '../models/pet.action';
+import { GlobalConstants } from 'src/environments/GlobalConstants';
 
+/**
+ * Custom URL validator
+ */
 export function urlValidator(control: AbstractControl): ValidationErrors | null {
   if (!control.value) return null; // empty is handled by required
-  const pattern = /^(https?:\/\/)?([\w.-]+)+(:\d+)?(\/([\w/_.]*)?)?$/i;
+  const pattern = /^https?:\/\//i; // only check if it starts with http/https
   return pattern.test(control.value) ? null : { invalidUrl: true };
 }
 
@@ -36,22 +40,19 @@ export class WriterPage extends PageBaseComponent implements OnInit {
     super(injector);
   }
 
-  
   ngOnInit(): void {
-    // Initialize form if not passed from parent
     if (!this.form) {
       this.form = new FormGroup({
         petId: new FormControl('', Validators.nullValidator),
         name: new FormControl('', Validators.required),
-        categoryId: new FormControl(1, Validators.required),
-        tagId: new FormControl(1, Validators.required),
+        description: new FormControl('', Validators.required), // changed from desc
         status: new FormControl('', Validators.required),
-        photoUrl: new FormControl('', [Validators.required, urlValidator]), // add custom validator
+        photoUrl: new FormControl('', [Validators.required, urlValidator]),
       });
     }
 
     if (this.action === Action.Add) {
-      this.form.reset({ categoryId: 1, tagId: 1 });
+      this.form.reset({ description: '' });
     } else if (this.selectedPet) {
       this.patchForm(this.selectedPet);
     }
@@ -61,8 +62,7 @@ export class WriterPage extends PageBaseComponent implements OnInit {
     this.form?.patchValue({
       petId: pet.petId,
       name: pet.name,
-      categoryId: pet.category?.id ?? 1,
-      tagId: pet.tags?.[0]?.id ?? 1,
+      description: pet.description, // patch description
       status: pet.status,
       photoUrl: pet.photoUrl
     });
@@ -71,26 +71,37 @@ export class WriterPage extends PageBaseComponent implements OnInit {
   async onSubmitPet(): Promise<void> {
     if (!this.form) return;
 
+    // Mark description and photoUrl as touched to show validation
+    //this.form.get('description')?.markAsTouched();
+    //this.form.get('photoUrl')?.markAsTouched();
+
+    if (this.form.invalid) return;
+
     const formValue = this.form.value;
-    const payload: Pet = {
-      petId: formValue.petId,
-      name: formValue.name,
-      status: formValue.status,
-      category: { id: formValue.categoryId },
-      tags: [{ id: formValue.tagId }],
-      photoUrl: formValue.photoUrl
-    };
+const payload: Pet = {
+  petId: formValue.petId,
+  name: formValue.name,
+  status: formValue.status,
+  description: formValue.description,
+  photoUrl: formValue.photoUrl,
+  tags: [{ id: 1 }],
+  category: { id: 1 } // provide default
+};
 
     try {
+      let result: any;
       if (this.action === Action.Add) {
-        await this.petService.postPet(payload);
+        result = await this.petService.postPet(payload);
       } else if (this.action === Action.Edit && this.selectedPet) {
-        await this.petService.putPet(payload);
+        result = await this.petService.putPet(payload);
       }
 
-      this.modalCtrl.dismiss({ pet: payload }, Action.Submitted);
+      if (result) {
+        GlobalConstants.globalBESuccess = "Operation Successfully";
+        this.modalCtrl.dismiss({ pet: payload }, Action.Submitted);
+      }
     } finally {
-      this.action = Action.View;
+      console.log("Submit completed");
     }
   }
 
@@ -105,7 +116,6 @@ export class WriterPage extends PageBaseComponent implements OnInit {
   cancel(): void {
     this.selectedPet = undefined;
     this.action = Action.Cancel;
-
     this.modalCtrl.dismiss(null, Action.Cancel);
   }
 

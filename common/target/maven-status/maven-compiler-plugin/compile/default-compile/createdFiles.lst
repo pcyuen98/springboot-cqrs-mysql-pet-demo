@@ -1,8 +1,10 @@
 com\example\petstore\config\CorsConfig.class
 com\example\petstore\config\JwtConverter.class
+com\example\petstore\common\util\ResponseEntityUtil.class
 com\example\petstore\config\PropertyLogger.class
 com\example\petstore\common\events\PetCreatedEvent.class
 com\example\petstore\config\JwtConverterProperties.class
+com\example\petstore\exception\GlobalControllerExceptionHandler.class
 com\example\petstore\common\model\Status.class
 com\example\petstore\common\exception\DemoAppException.class
 com\example\petstore\config\BeanLogger.class

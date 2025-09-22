@@ -9,13 +9,13 @@ import { ModelPopArrayModule } from '../shared-modules/modal-pop-array/modal-pop
 import { ReaderPage } from './reader.page';
 import { ReaderPageRoutingModule } from './reader-routing.module';
 import { FooterModule } from '../shared-modules/footer/footer.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { WriterPageModule } from '../writer/writer.module';
+import { IsAdminModule } from '../util/role.directive';
 
 @NgModule({
   imports: [CommonModule, IonicModule, HeaderModule, ReaderPageRoutingModule, ReactiveFormsModule,
     ModelPopModule, ModelPopArrayModule, ReactiveFormsModule, CommonModule
-    , FooterModule, NgOptimizedImage, WriterPageModule],
+    , FooterModule, NgOptimizedImage, WriterPageModule,IsAdminModule],
   declarations: [ ReaderPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

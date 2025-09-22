@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.model.PetWrite;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface PetWriteMapper {
 
     @Mapping(target = "status", source = "status")

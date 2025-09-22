@@ -122,7 +122,6 @@ export class CommonHTTPService {
       return await firstValueFrom(this.http.post<any>(resourceUrl, body, { headers: this.headers }));
     } catch (error) {
       this.handleHttpError(error, 'POST', resourceUrl);
-      throw error;
     }
   }
 
@@ -134,7 +133,6 @@ export class CommonHTTPService {
       return await firstValueFrom(this.http.put<any>(resourceUrl, body, { headers: this.headers }));
     } catch (error) {
       this.handleHttpError(error, 'POST', resourceUrl);
-      throw error;
     }
   }
 

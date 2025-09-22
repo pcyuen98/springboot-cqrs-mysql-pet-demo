@@ -41,6 +41,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
       tagId: new FormControl(1, Validators.required),
       status: new FormControl('', Validators.required),
       photoUrl: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.required),
     });
   }
 

@@ -3,6 +3,7 @@ export interface Pet {
   petId?: number; // backend may generate this
   name: string;
   status: string;
+  description: string;
   category: {
     id: number;
   };

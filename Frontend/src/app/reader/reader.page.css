@@ -48,7 +48,7 @@ ion-col {
 }
 
 .pet-photo:hover {
-  transform: scale(3); /* enlarge 1.5x on hover */
+  transform: scale(5); /* enlarge on hover */
   z-index: 10; /* stay on top */
   position: relative;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* optional shadow */

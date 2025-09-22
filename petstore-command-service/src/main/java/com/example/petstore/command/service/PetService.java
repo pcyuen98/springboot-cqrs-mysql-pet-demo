@@ -21,8 +21,8 @@ public class PetService {
 	public PetWriteEntity createPet(PetWriteEntity pet) {
 		PetWriteEntity saved = repository.save(pet);
 		PetCreatedEvent event = new PetCreatedEvent(saved.getPetId(), saved.getName(), saved.getCategory().getName(),
-				saved.getPhotoUrl(),
-				saved.getStatus().name() );
+
+				saved.getStatus().name(), saved.getPhotoUrl(), saved.getDescription());
 		kafkaTemplate.send("pets", event);
 		return saved;
 	}
