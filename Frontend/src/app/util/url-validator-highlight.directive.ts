@@ -1,62 +1,55 @@
 import { CommonModule } from '@angular/common';
-import { Directive, Input, ElementRef, Renderer2, OnInit, NgModule } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, NgModule } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
-@Directive({
-  selector: '[appUrlValidatorHighlight]'
-})
-export class UrlValidatorHighlightDirective implements OnInit {
-  @Input('appUrlValidatorHighlight') form!: FormGroup;
-  @Input() controlName!: string;
+@Component({
+    selector: 'app-url-validator-highlight',
+    template: `
+    <ion-item [class.invalid]="showError">
+            <ion-label position="floating">
+        <span class="required">*</span> Photo URL
+      </ion-label>
+      <ion-input type="text" [formControl]="control"></ion-input>
+    </ion-item>
 
-  private errorTextEl?: HTMLElement = undefined;
-
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
-
-  ngOnInit(): void {
-    const control = this.form?.get(this.controlName);
-    if (!control) return;
-
-    control.statusChanges.subscribe(() => {
-      this.toggleError(control.hasError('invalidUrl') && control.touched);
-    });
-  }
-
-  private toggleError(show: boolean): void {
-    const ionItem = this.el.nativeElement as HTMLElement;
-
-    if (show) {
-      // highlight ion-item
-      this.renderer.setStyle(ionItem, 'border-left', '3px solid var(--ion-color-danger)');
-      this.renderer.setStyle(ionItem, '--highlight-color-focused', 'var(--ion-color-danger)');
-
-      // add error message if not exists
-      if (!this.errorTextEl) {
-        this.errorTextEl = this.renderer.createElement('ion-text');
-        this.renderer.setAttribute(this.errorTextEl, 'color', 'danger');
-        this.errorTextEl!.innerHTML = 
-  'Invalid URL. Must start with http:// or https://';
-
-        this.renderer.appendChild(
-          ionItem.parentNode,
-          this.errorTextEl
-        );
-      }
-    } else {
-      this.renderer.removeStyle(ionItem, 'border-left');
-      this.renderer.removeStyle(ionItem, '--highlight-color-focused');
-
-      if (this.errorTextEl) {
-        this.renderer.removeChild(ionItem.parentNode, this.errorTextEl);
-        this.errorTextEl = undefined;
-      }
+    <ion-text *ngIf="showError" color="danger" class="ion-padding-start">
+      {{ errorMessage }}
+    </ion-text>
+  `,
+    styles: [`
+    ion-item.invalid {
+      border-left: 3px solid var(--ion-color-danger);
+      --highlight-color-focused: var(--ion-color-danger);
     }
-  }
+
+    .required {
+        color: var(--ion-color-danger); /* Ionic red */
+        font-weight: bold;
+        margin-right: 2px;
+}
+  `]
+})
+export class UrlValidatorHighlightComponent {
+    @Input() control!: FormControl;
+    @Input() errorMessage: string = 'Invalid URL. Must start with http:// or https://';
+
+    get showError(): boolean {
+        return !!(
+            this.control &&
+            this.control.hasError('invalidUrl') &&
+            (this.control.dirty || this.control.touched)
+        );
+    }
 }
 
 @NgModule({
-  declarations: [UrlValidatorHighlightDirective],
-  imports: [CommonModule],
-  exports: [UrlValidatorHighlightDirective]
+    declarations: [UrlValidatorHighlightComponent],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        IonicModule // 👈 import Ionic components here
+    ],
+    exports: [UrlValidatorHighlightComponent]
 })
-export class UrlValidatorHighlightModule {}
+export class UrlValidatorHighlightModule { }

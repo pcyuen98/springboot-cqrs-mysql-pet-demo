@@ -14,38 +14,28 @@
   <!-- Add/Edit Form -->
   <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitPet()">
 
-    <ion-item>
-      <ion-label position="floating">Name</ion-label>
+    <ion-item highlightInvalid>
+      <ion-label position="floating"> <span class="required">*</span> Name</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
 
     <!-- Description Text Area -->
-    <ion-item>
-      <ion-label position="floating">Description</ion-label>
+    <ion-item highlightInvalid>
+      <ion-label position="floating"> <span class="required">*</span> Description</ion-label>
       <ion-textarea formControlName="description" rows="6" auto-grow="true"
         placeholder="Enter description here..."></ion-textarea>
     </ion-item>
 
     <ion-item>
-      <ion-label>Status</ion-label>
+      <ion-label> <span class="required">*</span> Status</ion-label>
       <ion-select formControlName="status" interface="popover" placeholder="Select Status">
         <ion-select-option *ngFor="let s of petStatuses" [value]="s">{{ s }}</ion-select-option>
       </ion-select>
     </ion-item>
 
-    <!-- Photo URL -->
-    <ion-item [class.invalid]="form?.controls['photoUrl'].invalid && form?.controls['photoUrl'].touched">
-      <ion-label position="floating">Photo URL</ion-label>
-      <ion-input type="text" formControlName="photoUrl"></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="form?.controls['photoUrl'].hasError('invalidUrl') && form?.controls['photoUrl'].touched">
-      Invalid URL. Must start with http:// or https://
-    </ion-text>
-
-<ion-item [appUrlValidatorHighlight]="form" [controlName]="'photoUrl'">
-  <ion-label position="floating">Photo URL</ion-label>
-  <ion-input type="text" formControlName="photoUrl"></ion-input>
-</ion-item>
+    <app-url-validator-highlight [control]="form.get('photoUrl')" label="Photo URL"
+      errorMessage="Please enter a valid URL starting with http:// or https://">
+    </app-url-validator-highlight>
 
     <div class="ion-text-center ion-margin-top">
       <ion-button type="submit" [disabled]="form.invalid" color="primary">Save</ion-button>

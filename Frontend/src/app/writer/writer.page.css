@@ -12,3 +12,10 @@ ion-item.invalid {
   --highlight-color-invalid: var(--ion-color-danger);
   border-left: 3px solid var(--ion-color-danger);
 }
+
+.required {
+  color: var(--ion-color-danger);
+  /* Ionic red */
+  font-weight: bold;
+  margin-right: 2px;
+}

@@ -10,11 +10,12 @@ import { FooterModule } from '../shared-modules/footer/footer.module';
 import { WriterPage } from './writer.page';
 import { WriterPageRoutingModule } from './writer-routing.module';
 import { UrlValidatorHighlightModule } from '../util/url-validator-highlight.directive';
+import { HighlightInvalidModule } from '../util/highlight-invalid.directive';
 
 @NgModule({
   imports: [CommonModule, IonicModule, HeaderModule, WriterPageRoutingModule, ReactiveFormsModule,
     ModelPopModule, ModelPopArrayModule, ReactiveFormsModule, CommonModule
-    , FooterModule, NgOptimizedImage, UrlValidatorHighlightModule],
+    , FooterModule, NgOptimizedImage, UrlValidatorHighlightModule, HighlightInvalidModule],
   declarations: [ WriterPage],
   exports: [WriterPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
