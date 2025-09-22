@@ -6,9 +6,15 @@ ion-button {
   margin: 4px;
 }
 
-.required {
-  color: var(--ion-color-danger);
-  /* Ionic red */
-  font-weight: bold;
-  margin-right: 2px;
+/* Highlight invalid inputs */
+ion-item.invalid {
+  --highlight-color-focused: var(--ion-color-danger);
+  --highlight-color-invalid: var(--ion-color-danger);
+  border-left: 3px solid var(--ion-color-danger);
 }
+
+    .required {
+        color: var(--ion-color-danger); /* Ionic red */
+        font-weight: bold;
+        margin-right: 2px;
+    }

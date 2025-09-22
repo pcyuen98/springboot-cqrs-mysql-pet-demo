@@ -7,6 +7,12 @@ import { PetStatus } from '../reader/reader.page';
 import { ModalController } from '@ionic/angular';
 import { Action } from '../models/pet.action';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
+import { urlValidator } from '../util/url-validator-highlight.directive';
+
+/**
+ * Custom URL validator
+ */
+
 
 @Component({
   selector: 'app-writer',
@@ -38,7 +44,7 @@ export class WriterPage extends PageBaseComponent implements OnInit {
         name: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required), // changed from desc
         status: new FormControl('', Validators.required),
-        photoUrl: new FormControl('', [Validators.required]),
+        photoUrl: new FormControl('', [Validators.required, urlValidator]),
       });
     }
 
