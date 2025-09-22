@@ -39,10 +39,16 @@
           </ion-select>
         </ion-item>
 
-        <ion-item>
-          <ion-label position="floating">Photo URL</ion-label>
-          <ion-input type="text" formControlName="photoUrl"></ion-input>
-        </ion-item>
+<ion-item
+  [class.invalid-input]="form?.get('photoUrl')?.invalid && form?.get('photoUrl')?.touched"
+>
+  <ion-label position="floating">Photo URL</ion-label>
+  <ion-input type="text" formControlName="photoUrl"></ion-input>
+</ion-item>
+
+<ion-text color="danger" *ngIf="form?.get('photoUrl')?.errors?.invalidUrl && form?.get('photoUrl')?.touched">
+  Please enter a valid URL.
+</ion-text>
 
         <div class="ion-text-center ion-margin-top">
           <ion-button type="submit" [disabled]="form.invalid" color="primary">Save</ion-button>

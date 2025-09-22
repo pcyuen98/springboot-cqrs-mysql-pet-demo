@@ -1,11 +1,17 @@
 import { Component, OnInit, Injector, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Pet } from '../models/pet.model';
 import { PageBaseComponent } from '../util/page-base.component';
 import { PetService } from '../service/PetService';
 import { PetStatus } from '../reader/reader.page';
 import { ModalController } from '@ionic/angular';
 import { Action } from '../models/pet.action';
+
+export function urlValidator(control: AbstractControl): ValidationErrors | null {
+  if (!control.value) return null; // empty is handled by required
+  const pattern = /^(https?:\/\/)?([\w.-]+)+(:\d+)?(\/([\w/_.]*)?)?$/i;
+  return pattern.test(control.value) ? null : { invalidUrl: true };
+}
 
 @Component({
   selector: 'app-writer',
@@ -30,6 +36,7 @@ export class WriterPage extends PageBaseComponent implements OnInit {
     super(injector);
   }
 
+  
   ngOnInit(): void {
     // Initialize form if not passed from parent
     if (!this.form) {
@@ -39,7 +46,7 @@ export class WriterPage extends PageBaseComponent implements OnInit {
         categoryId: new FormControl(1, Validators.required),
         tagId: new FormControl(1, Validators.required),
         status: new FormControl('', Validators.required),
-        photoUrl: new FormControl('', Validators.required),
+        photoUrl: new FormControl('', [Validators.required, urlValidator]), // add custom validator
       });
     }
 

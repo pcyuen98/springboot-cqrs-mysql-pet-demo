@@ -1,16 +1,16 @@
 <app-header></app-header>
 
-<ion-content class="ion-padding">
+<ion-content>
 
   <!-- Header & Actions -->
-  <div>
+  <div class="header-actions">
     <ion-grid>
       <ion-row class="ion-align-items-center">
+
         <!-- Title -->
         <ion-col size="6">
-          <h1 class="ion-margin-top ion-margin-bottom" style="font-weight: bold; font-size: 2rem; color: #2563eb;">
-            <ion-icon name="paw-outline" style="font-size: 2.5rem; vertical-align: middle; margin-right: 8px;">
-            </ion-icon>
+          <h1 class="page-title">
+            <ion-icon name="paw-outline" class="title-icon"></ion-icon>
             Pets Management
           </h1>
         </ion-col>
@@ -49,17 +49,19 @@
       </ion-row>
     </ion-grid>
   </div>
+
   <!-- Pets List -->
   <ion-card *ngIf="pets.length">
     <ion-card-content>
       <ion-grid>
+
         <!-- Table Header -->
-        <ion-row class="header-row">
+        <ion-row class="table-header">
           <ion-col size="1"><strong>#</strong></ion-col>
           <ion-col size="3"><strong>Name</strong></ion-col>
           <ion-col size="2"><strong>Status</strong></ion-col>
           <ion-col size="2"><strong>Category ID</strong></ion-col>
-          <ion-col size="2"><strong>Tags</strong></ion-col>
+          <ion-col size="2"><strong>Photo</strong></ion-col>
           <ion-col size="2" class="ion-text-center"><strong>Actions</strong></ion-col>
         </ion-row>
 
@@ -73,7 +75,9 @@
             <ion-badge color="danger" *ngIf="pet.status === 'SOLD'">Sold</ion-badge>
           </ion-col>
           <ion-col size="2">{{ pet.category?.id }}</ion-col>
-          <ion-col size="2">{{ getTagIds(pet) }}</ion-col>
+          <ion-col size="2">
+            <img [src]="pet.photoUrl" alt="{{ pet.name }}" [ngStyle]="{'width': '100px', 'height': '100px'}" class="pet-photo">
+          </ion-col>
           <ion-col size="2" class="ion-text-center">
             <ion-button fill="clear" color="primary" (click)="onEditPet(pet)">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
@@ -83,6 +87,7 @@
             </ion-button>
           </ion-col>
         </ion-row>
+
       </ion-grid>
     </ion-card-content>
   </ion-card>

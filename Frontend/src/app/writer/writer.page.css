@@ -5,3 +5,8 @@ ion-item {
 ion-button {
   margin: 4px;
 }
+
+.invalid-input {
+  border: 1px solid red;
+  border-radius: 4px;
+}

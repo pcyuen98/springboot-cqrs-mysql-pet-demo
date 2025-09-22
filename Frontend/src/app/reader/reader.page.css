@@ -37,3 +37,19 @@ ion-col {
     font-size: 0.9rem;
     color: #555;
   }
+
+  .pet-photo {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.3s ease; /* smooth animation */
+  cursor: pointer;
+}
+
+.pet-photo:hover {
+  transform: scale(3); /* enlarge 1.5x on hover */
+  z-index: 10; /* stay on top */
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* optional shadow */
+}
