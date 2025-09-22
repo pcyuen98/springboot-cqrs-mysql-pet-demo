@@ -9531,3 +9531,4 @@ jakarta.persistence.EntityNotFoundException: Unable to find com.example.petstore
 2025-09-22T14:53:44.561+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=producer-1] ProducerId set to 4027 with epoch 0
 2025-09-22T14:53:44.619+08:00  INFO 9296 --- [http-nio-8081-exec-4] c.e.petstore.command.service.PetService  : id deleted successfully #2
 2025-09-22T14:53:56.704+08:00  INFO 9296 --- [http-nio-8081-exec-6] c.e.petstore.command.service.PetService  : id deleted successfully #3
+2025-09-22T15:02:44.636+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node -1 disconnected.

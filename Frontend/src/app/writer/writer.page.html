@@ -42,6 +42,11 @@
       Invalid URL. Must start with http:// or https://
     </ion-text>
 
+<ion-item [appUrlValidatorHighlight]="form" [controlName]="'photoUrl'">
+  <ion-label position="floating">Photo URL</ion-label>
+  <ion-input type="text" formControlName="photoUrl"></ion-input>
+</ion-item>
+
     <div class="ion-text-center ion-margin-top">
       <ion-button type="submit" [disabled]="form.invalid" color="primary">Save</ion-button>
       <ion-button type="button" color="medium" (click)="cancel()">Cancel</ion-button>

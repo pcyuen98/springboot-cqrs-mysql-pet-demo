@@ -9,11 +9,12 @@ import { ModelPopArrayModule } from '../shared-modules/modal-pop-array/modal-pop
 import { FooterModule } from '../shared-modules/footer/footer.module';
 import { WriterPage } from './writer.page';
 import { WriterPageRoutingModule } from './writer-routing.module';
+import { UrlValidatorHighlightModule } from '../util/url-validator-highlight.directive';
 
 @NgModule({
   imports: [CommonModule, IonicModule, HeaderModule, WriterPageRoutingModule, ReactiveFormsModule,
     ModelPopModule, ModelPopArrayModule, ReactiveFormsModule, CommonModule
-    , FooterModule, NgOptimizedImage],
+    , FooterModule, NgOptimizedImage, UrlValidatorHighlightModule],
   declarations: [ WriterPage],
   exports: [WriterPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
