@@ -35,6 +35,13 @@ export class PetService {
         return response as Pet;
     }
 
+    async deletePet(petId: number): Promise<String> {
+        // Call the write API with PUT and the Pet payload
+        const response = await this.httpCommonService.deleteResource(this.writeApiUrl + '/' + petId);
+        // Assuming the write API returns the created pet directly
+        return "success"
+    }
+
     async putPet(pet: Pet): Promise<Pet> {
         // Call the write API with PUT and the Pet payload
         const response = await this.httpCommonService.putResource(this.writeApiUrl, pet);

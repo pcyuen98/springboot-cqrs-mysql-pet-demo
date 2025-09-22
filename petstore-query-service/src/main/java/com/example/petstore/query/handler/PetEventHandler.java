@@ -4,6 +4,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import com.example.petstore.common.events.PetCreatedEvent;
+import com.example.petstore.common.model.Status;
 import com.example.petstore.query.model.PetReadEntity;
 import com.example.petstore.query.repository.PetReadRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,7 +31,14 @@ public class PetEventHandler {
 	        pet.setId(event.getPetId());
 	        pet.setStatus(event.getStatus());
 	        pet.setData(message);
-	        petReadRepository.save(pet);
+	        
+	        if (event.getStatus().equals(Status.DELETE.name()) ) {
+	        	petReadRepository.delete(pet);
+	        }
+	        else {
+	        	petReadRepository.save(pet);
+	        }
+	        
 
 	    } catch (Exception e) {
 	        log.error("Error parsing event JSON", e);

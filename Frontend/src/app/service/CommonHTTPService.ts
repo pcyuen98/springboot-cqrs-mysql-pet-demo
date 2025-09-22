@@ -136,6 +136,15 @@ export class CommonHTTPService {
     }
   }
 
+  async deleteResource(resourceUrl: string): Promise<any> {
+
+    try {
+      return await firstValueFrom(this.http.delete<any>(resourceUrl, { headers: this.headers }));
+    } catch (error) {
+      this.handleHttpError(error, 'DELETE', resourceUrl);
+    }
+  }
+
   /**
    * Logs errors for debugging purposes
    */

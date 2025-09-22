@@ -34,15 +34,6 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
   ) {
     super(injector);
 
-    this.form = new FormGroup({
-      petId: new FormControl('', Validators.nullValidator),
-      name: new FormControl('', Validators.required),
-      categoryId: new FormControl(1, Validators.required),
-      tagId: new FormControl(1, Validators.required),
-      status: new FormControl('', Validators.required),
-      photoUrl: new FormControl('', Validators.required),
-      description: new FormControl('', Validators.required),
-    });
   }
 
   ngOnInit(): void {
@@ -61,18 +52,6 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     action: Action,
     pet?: Pet
   ): Promise<void> {
-    if (action === Action.Add) {
-      this.form.reset({ categoryId: 1, tagId: 1 });
-    } else if (pet) {
-      this.form.patchValue({
-        petId: pet.petId,
-        name: pet.name,
-        categoryId: pet.category?.id ?? 1,
-        tagId: pet.tags?.[0]?.id ?? 1,
-        status: pet.status,
-        photoUrl: pet.photoUrl
-      });
-    }
 
     const modal = await this.modalCtrl.create({
       component: WriterPage,

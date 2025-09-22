@@ -55,29 +55,29 @@
       <ion-grid>
 
         <!-- Table Header -->
-        <ion-row class="table-header">
-          <ion-col size="0.5"><strong>#</strong></ion-col>
+        <ion-row class="table-header ion-text-center">
+          <ion-col size="0.3"><strong>#</strong></ion-col>
           <ion-col size="2"><strong>Name</strong></ion-col>
-          <ion-col size="1"><strong>Status</strong></ion-col>
           <ion-col size="4"><strong>Description</strong></ion-col>
-          <ion-col size="2"><strong>Photo</strong></ion-col>
-          <ion-col *isAdmin size="2" class="ion-text-center"><strong>Actions</strong></ion-col>
+          <ion-col size="1"><strong>Status</strong></ion-col>
+          <ion-col size="3"><strong>Photo</strong></ion-col>
+          <ion-col *isAdmin size="1"><strong>Actions</strong></ion-col>
         </ion-row>
 
         <!-- Table Rows -->
-        <ion-row *ngFor="let pet of pets">
-          <ion-col size="0.5">{{ pet.petId ?? 'N/A' }}</ion-col>
+        <ion-row *ngFor="let pet of pets" class="ion-text-center">
+          <ion-col size="0.3">{{ pet.petId ?? 'N/A' }}</ion-col>
           <ion-col size="2">{{ pet.name }}</ion-col>
+          <ion-col size="4" class="ion-text-start">{{ pet.description }}</ion-col>
           <ion-col size="1">
             <ion-badge color="success" *ngIf="pet.status === 'AVAILABLE'">Available</ion-badge>
             <ion-badge color="warning" *ngIf="pet.status === 'PENDING'">Pending</ion-badge>
             <ion-badge color="danger" *ngIf="pet.status === 'SOLD'">Sold</ion-badge>
           </ion-col>
-          <ion-col size="4">{{ pet.description }}</ion-col>
-          <ion-col size="2">
+          <ion-col size="3">
             <img [src]="pet.photoUrl" alt="{{ pet.name }}" [ngStyle]="{'width': '100px', 'height': '100px'}" class="pet-photo">
           </ion-col>
-          <ion-col *isAdmin size="2" class="ion-text-center">
+          <ion-col *isAdmin size="1">
             <ion-button fill="clear" color="primary" (click)="onEditPet(pet)">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
             </ion-button>
