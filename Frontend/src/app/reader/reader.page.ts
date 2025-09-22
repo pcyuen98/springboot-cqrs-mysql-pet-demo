@@ -25,7 +25,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
   actions = Action;
   form: FormGroup;
 
-  petStatuses = Object.values(PetStatus);
+  petStatuses = ["ANY", ...Object.values(PetStatus)];
 
   constructor(
     injector: Injector,
@@ -33,7 +33,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     private modalCtrl: ModalController
   ) {
     super(injector);
-
+    
   }
 
   ngOnInit(): void {
@@ -84,14 +84,19 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
     await this.openPetModal(Action.Delete, pet);
   }
 
-  async search(id: number): Promise<void> {
+  async search(id: number, status: string , data: string): Promise<void> {
     const numId = Number(id);
     if (!isNaN(numId) && numId > 0) {
       const pet = await this.petService.getPetById(numId);
       this.pets = pet ? [pet] : [];
+      
     } else {
-      await this.loadPets();
+      if (status === "ANY") { status = ""}
+      this.pets = await this.petService.search(status, data)
     }
+
+    //await this.loadPets();
+
   }
 
   async searchPetsByStatus(status: string): Promise<void> {

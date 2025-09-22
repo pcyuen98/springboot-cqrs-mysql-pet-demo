@@ -27,4 +27,18 @@ public class PetQueryService {
 	public List<PetReadEntity> findPetsByStatus(String status) {
 		return petReadRepository.findByStatus(status);
 	}
+	
+    public List<PetReadEntity> findPetsByStatusAndData(String status, String data) {
+    	status = (status == null || status.trim().isEmpty() || status.equals("undefined")) ? null : status;
+    	data = (data == null || data.trim().isEmpty() || data.equals("undefined")) ? null : data;
+    	
+        return findPetsByStatusAndDataByWildCard(status, data);
+    }
+    
+	List<PetReadEntity> findPetsByStatusAndDataByWildCard(String status, String data) {
+		String statusRegex = (status == null || status.isBlank()) ? ".*" : status;
+		String dataRegex = (data == null || data.isBlank()) ? ".*" : data;
+
+		return petReadRepository.search(statusRegex, dataRegex);
+	}
 }

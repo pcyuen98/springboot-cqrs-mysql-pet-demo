@@ -58,4 +58,10 @@ export class PetService {
         const response = await this.httpCommonService.getResource(`${this.apiUrl}findByStatus/${status}`);
         return response.map((item: any) => JSON.parse(item.data) as Pet);
     }
+
+    async search(status: String, data: String): Promise<Pet[]> {
+
+        const response = await this.httpCommonService.getResource(`${this.apiUrl}search?status=${status}&data=${data}`);
+        return response.map((item: any) => JSON.parse(item.data) as Pet);
+    }
 }

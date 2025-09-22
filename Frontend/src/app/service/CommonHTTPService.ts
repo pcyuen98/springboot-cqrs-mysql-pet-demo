@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
@@ -113,6 +113,21 @@ export class CommonHTTPService {
       throw error;
     }
   }
+
+  async getResourceWithParam(resourceUrl: string, params?: HttpParams): Promise<any> {
+  if (this.userService.isTokenExpired()) {
+    throw new Error('Token is expired.');
+  }
+
+  try {
+    return await firstValueFrom(
+      this.http.get<any>(resourceUrl, { headers: this.headers, params })
+    );
+  } catch (error) {
+    this.handleHttpError(error, 'GET', resourceUrl);
+    throw error;
+  }
+}
 
   /**
    * Executes POST request with authorization header

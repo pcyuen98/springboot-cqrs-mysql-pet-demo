@@ -8,15 +8,6 @@ import { ModalController } from '@ionic/angular';
 import { Action } from '../models/pet.action';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
 
-/**
- * Custom URL validator
- */
-export function urlValidator(control: AbstractControl): ValidationErrors | null {
-  if (!control.value) return null; // empty is handled by required
-  const pattern = /^https?:\/\//i; // only check if it starts with http/https
-  return pattern.test(control.value) ? null : { invalidUrl: true };
-}
-
 @Component({
   selector: 'app-writer',
   templateUrl: 'writer.page.html',
@@ -47,7 +38,7 @@ export class WriterPage extends PageBaseComponent implements OnInit {
         name: new FormControl('', Validators.required),
         description: new FormControl('', Validators.required), // changed from desc
         status: new FormControl('', Validators.required),
-        photoUrl: new FormControl('', [Validators.required, urlValidator]),
+        photoUrl: new FormControl('', [Validators.required]),
       });
     }
 

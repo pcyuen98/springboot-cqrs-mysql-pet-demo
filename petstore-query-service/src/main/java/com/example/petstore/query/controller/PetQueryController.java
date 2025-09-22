@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.petstore.query.model.PetReadEntity;
@@ -40,5 +41,12 @@ public class PetQueryController {
     public List<PetReadEntity> getPetsByStatus(@PathVariable String status) {
         log.info("Fetching pets by status: {}", status);
         return petQueryService.findPetsByStatus(status.toUpperCase()); // normalize input
+    }
+    
+    @GetMapping("/search")
+    public List<PetReadEntity> searchPets(
+            @RequestParam String status,
+            @RequestParam String data) {
+        return petQueryService.findPetsByStatusAndData(status, data);
     }
 }
