@@ -58,7 +58,7 @@ Separating the read model from the write model simplifies system design by addre
 <p align="center">
 <img src="/doc/CQRSDiagram.png" alt="Pets Store Arhictecture Diagram" width="860" height="650">
 </p>
-*Diagram that shows a CQRS architecture with separate read and write data stores.*
+**Diagram that shows a CQRS architecture with separate read and write data stores.**
 
 Assuming the there is a huge number of users > 10 concurrent users for the but there is only a few admin users. Isolation of the services and data improves the needs and effectiveness of the scalability. 
 In this case, only admin or query services/data required to be scaled. System or secured data in the database also isolated from the public users.
