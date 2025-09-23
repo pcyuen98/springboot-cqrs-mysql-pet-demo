@@ -9532,3 +9532,10 @@ jakarta.persistence.EntityNotFoundException: Unable to find com.example.petstore
 2025-09-22T14:53:44.619+08:00  INFO 9296 --- [http-nio-8081-exec-4] c.e.petstore.command.service.PetService  : id deleted successfully #2
 2025-09-22T14:53:56.704+08:00  INFO 9296 --- [http-nio-8081-exec-6] c.e.petstore.command.service.PetService  : id deleted successfully #3
 2025-09-22T15:02:44.636+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=producer-1] Node -1 disconnected.
+2025-09-22T15:39:22.981+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Resetting the last seen epoch of partition pets-0 to 0 since the associated topicId changed from null to aujiX36JSj6QxxTsXQdRnQ
+2025-09-22T16:06:00.277+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Resetting the last seen epoch of partition pets-0 to 0 since the associated topicId changed from null to aujiX36JSj6QxxTsXQdRnQ
+2025-09-22T16:10:28.514+08:00  INFO 9296 --- [http-nio-8081-exec-9] c.e.petstore.command.service.PetService  : id deleted successfully #6
+2025-09-22T16:17:34.514+08:00  INFO 9296 --- [http-nio-8081-exec-6] c.e.petstore.command.service.PetService  : id deleted successfully #7
+2025-09-22T17:51:26.615+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Resetting the last seen epoch of partition pets-0 to 0 since the associated topicId changed from null to aujiX36JSj6QxxTsXQdRnQ
+2025-09-22T17:51:52.316+08:00  INFO 9296 --- [http-nio-8081-exec-2] c.e.petstore.command.service.PetService  : id deleted successfully #8
+2025-09-22T18:11:29.234+08:00  INFO 9296 --- [kafka-producer-network-thread | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Resetting the last seen epoch of partition pets-0 to 0 since the associated topicId changed from null to aujiX36JSj6QxxTsXQdRnQ

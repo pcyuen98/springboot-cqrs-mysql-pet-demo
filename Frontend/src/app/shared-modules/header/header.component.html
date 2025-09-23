@@ -7,7 +7,7 @@
           <ion-col>
             <div class="ion-text-center">
               <h2 class="footer-title">PETSTORE DEMO APP</h2>
-              <small>with Microservices CQRS Architecture, KeyCloak, Spring Boot, MongoDB and MySQL</small><br>
+              <small>with Microservices CQRS Architecture</small><br>
 
               <span *ngIf="isLogin() && getUserCookies()">
                 <app-util-hello [name]="getUserCookies().username" [moduleName]="moduleName"></app-util-hello>
@@ -15,7 +15,7 @@
               <span *ngIf="!isLogin()">
                 <b (click)="login()" class="footer-link clickable logout-green">&nbsp;Login&nbsp;</b>
                 <br><small><b>Note: </b></small>  
-                <small style="color: grey;">(Username as "keycloak" or "redis". Password as "password")</small>
+                <small style="color: grey;">(Username as "keycloak" or "reader". Password as "password")</small>
               </span>
 
             </div>

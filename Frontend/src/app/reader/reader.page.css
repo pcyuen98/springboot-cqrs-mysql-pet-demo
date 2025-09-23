@@ -1,55 +1,29 @@
-.header-row {
-  background-color: #f1f5f9;
-  font-weight: bold;
-  border-bottom: 1px solid #ccc;
-  padding: 8px 0;
-}
 
-ion-row {
-  border-bottom: 1px solid #eee;
-  align-items: center;
-  padding: 6px 0;
-}
-
-ion-col {
-  display: flex;
-  align-items: center;
-}
-
-  .pet-row-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .pet-id {
-    font-weight: bold;
-    color: #2563eb;
-  }
-
-  .pet-name {
-    font-weight: bold;
-  }
-
-  .pet-category,
-  .pet-tags {
-    font-size: 0.9rem;
-    color: #555;
-  }
-
-  .pet-photo {
+/* --------------------------
+   Pet Photo Styling
+-------------------------- */
+.pet-photo {
   width: 100px;
-  height: 100px;
+  height: 60px;
   object-fit: cover;
   border-radius: 4px;
-  transition: transform 0.3s ease; /* smooth animation */
+  transition: transform 0.3s ease;
   cursor: pointer;
 }
 
 .pet-photo:hover {
   transform: scale(5); /* enlarge on hover */
-  z-index: 10; /* stay on top */
+  z-index: 10; 
   position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* optional shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* writer.page.css or reader.page.css */
+ion-card-content ion-grid {
+  padding-left: 250px;  /* increase left padding */
+  padding-right: 250px; /* increase right padding */
+}
+
+ion-col.ion-text-end {
+  padding-left: 40px; /* adjust as needed */
 }
