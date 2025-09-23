@@ -1,5 +1,0 @@
-com\example\petstore\command\service\PetService.class
-com\example\petstore\command\repository\PetRepository.class
-com\example\petstore\command\PetstoreCommandApplication.class
-com\example\petstore\command\model\Pet.class
-com\example\petstore\command\controller\PetCommandController.class
