@@ -1,9 +1,13 @@
-FROM maven:3.8.6-eclipse-temurin-17
+# --- Build stage ---
+FROM maven:3.9.6-eclipse-temurin-21 AS build
+WORKDIR /workspace
 
-RUN mkdir -p /opt/app
+# Copy parent pom.xml
+COPY . .
 
-RUN mkdir -p /uploads
+FROM  maven:3.9.6-eclipse-temurin-21
 
-COPY ./App_api-0.0.1-SNAPSHOT.jar /opt/app
-
-CMD ["java", "-jar", "/opt/app/App_api-0.0.1-SNAPSHOT.jar"]
+WORKDIR /app
+COPY ./target/App_api-0.0.1-SNAPSHOT app.jar
+EXPOSE 7090
+ENTRYPOINT ["java","-jar","/app/app.jar"]
