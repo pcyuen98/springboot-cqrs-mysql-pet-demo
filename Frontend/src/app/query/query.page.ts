@@ -1,10 +1,10 @@
 import { Component, OnInit, Injector } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Pet } from '../models/pet.model';
 import { PageBaseComponent } from '../util/page-base.component';
 import { PetService } from '../service/PetService';
-import { WriterPage } from '../writer/component-writer.page';
+import { ComponentWriterPage } from '../writer/component.writer.page';
 import { Action } from '../models/pet.action';
 
 export enum PetStatus {
@@ -14,9 +14,9 @@ export enum PetStatus {
 }
 
 @Component({
-  selector: 'app-reader',
-  templateUrl: 'reader.page.html',
-  styleUrls: ['reader.page.css']
+  selector: 'app-query',
+  templateUrl: 'query.page.html',
+  styleUrls: ['query.page.css']
 })
 export class QueryPage extends PageBaseComponent implements OnInit {
   pets: Pet[] = [];
@@ -54,7 +54,7 @@ export class QueryPage extends PageBaseComponent implements OnInit {
   ): Promise<void> {
 
     const modal = await this.modalCtrl.create({
-      component: WriterPage,
+      component: ComponentWriterPage,
       componentProps: { action, form: this.form, selectedPet: pet || null }
     });
 
@@ -94,8 +94,6 @@ export class QueryPage extends PageBaseComponent implements OnInit {
       if (status === "ANY") { status = ""}
       this.pets = await this.petService.search(status, data)
     }
-
-    //await this.loadPets();
 
   }
 

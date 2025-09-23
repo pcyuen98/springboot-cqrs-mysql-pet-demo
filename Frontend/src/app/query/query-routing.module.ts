@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { QueryPage } from './query.page';
+import { QueryPage as QueryPage } from './query.page';
 
 const routes: Routes = [
   {

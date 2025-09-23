@@ -17,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'reader',
-    loadChildren: () => import('./reader/reader.module').then(m => m.ReaderPageModule),
+    loadChildren: () => import('./query/query.module').then(m => m.QueryPageModule),
     canActivate: [AuthGuard],
     data: { roles: [Role.Reader] }
   },

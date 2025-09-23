@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators }
 import { Pet } from '../models/pet.model';
 import { PageBaseComponent } from '../util/page-base.component';
 import { PetService } from '../service/PetService';
-import { PetStatus } from '../reader/reader.page';
+import { PetStatus } from '../query/query.page';
 import { ModalController } from '@ionic/angular';
 import { Action } from '../models/pet.action';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
