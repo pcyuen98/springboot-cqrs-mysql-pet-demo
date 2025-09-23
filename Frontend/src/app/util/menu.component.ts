@@ -8,12 +8,12 @@ import { UserService } from '../service/UserService';
 @Component({
     selector: 'app-menu',
     template: `
-              <span *ngFor="let item of getMenuItems()" (click)="onMenuItemClick(item)">
-                <span *ngIf="hasRole(item.role)">
+              <span *ngFor="let item of getMenuItems()" (click)="onMenuItemClick(item)" style="font-size: 0.9rem;">
+                <span *ngIf="hasRole(item.role)" >
 
                 <a *ngIf="!isSameURL(item)" class="font-link clickable logout-green"><b>{{ item.name }}
                     | </b> </a>
-                <span *ngIf="isSameURL(item)" class="logout-white"><b>{{ item.name }} | </b> </span>
+                <span *ngIf="isSameURL(item)" class="logout-white" style="font-size: 0.9rem;"><b>{{ item.name }} | </b> </span>
                 </span>
               </span>
   `,

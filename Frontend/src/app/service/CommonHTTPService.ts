@@ -147,7 +147,7 @@ export class CommonHTTPService {
     try {
       return await firstValueFrom(this.http.put<any>(resourceUrl, body, { headers: this.headers }));
     } catch (error) {
-      this.handleHttpError(error, 'POST', resourceUrl);
+      this.handleHttpError(error, 'PUT', resourceUrl);
     }
   }
 

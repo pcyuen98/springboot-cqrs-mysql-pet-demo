@@ -27,3 +27,15 @@ ion-card-content ion-grid {
 ion-col.ion-text-end {
   padding-left: 40px; /* adjust as needed */
 }
+
+ion-label.medium {
+  font-size: 13px;  
+  font-weight: 500; 
+}
+
+ion-select.medium {
+  font-size: 14px;   
+}
+
+ion-select.medium::part(text) {
+  font-size: 14px; }

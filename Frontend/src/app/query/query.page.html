@@ -7,16 +7,20 @@
       <ion-row class="ion-align-items-center">
 
         <!-- Title -->
-        <ion-col size="2">
-          <h1 class="page-title">
-          <ion-icon name="paw-outline" style="font-size: 68px; color: #032976;"  class="title-icon"></ion-icon>
+        <ion-col size="2" class="ion-text-start">
+          <h1 class="page-title" style="display: flex; align-items: center; gap: 8px; font-size: 28px; color: #032976;">
+            <ion-icon name="paw-outline" style="font-size: 42px; color: #032976;"></ion-icon>
+            <span style="font-weight: bold; font-size: 22px;">
+              {{ pets.length }}
+              <small style="font-weight: normal; color: #666;">pets</small>
+            </span>
           </h1>
         </ion-col>
 
         <!-- Search by ID -->
         <ion-col size="2">
           <ion-item>
-            <ion-label position="floating">Search by ID</ion-label>
+            <ion-label class="medium" position="floating">Search by ID</ion-label>
             <ion-input #petId type="number"></ion-input>
           </ion-item>
         </ion-col>
@@ -24,7 +28,7 @@
         <!-- Search by Data -->
         <ion-col size="2">
           <ion-item>
-            <ion-label position="floating">Search Text</ion-label>
+            <ion-label class="medium" position="floating">Search Text</ion-label>
             <ion-input #petData type="string"></ion-input>
           </ion-item>
         </ion-col>
@@ -32,7 +36,7 @@
         <!-- Status Dropdown -->
         <ion-col size="2">
           <ion-item>
-            <ion-select #petStatus placeholder="Status">
+            <ion-select class="medium" #petStatus placeholder="Status">
               <ion-select-option *ngFor="let s of petStatuses" [value]="s">
                 {{ s }}
               </ion-select-option>
@@ -44,11 +48,11 @@
         <ion-col size="1.5" class="ion-text-right">
           <ion-button color="primary" (click)="search(petId.value, petStatus.value, petData.value)">
             <ion-icon name="search-outline" slot="start"></ion-icon>
-            
+
           </ion-button>
-          <ion-button [*isAdmin]="true" color="success" (click)="onAddPet()">
+          <ion-button *isAdmin="true" color="success" (click)="onAddPet()">
             <ion-icon name="add-circle-outline" slot="start"></ion-icon>
-            
+
           </ion-button>
         </ion-col>
 
@@ -62,18 +66,18 @@
       <ion-grid>
 
         <!-- Table Header -->
-        <ion-row >
-          <ion-col size="0.3"><strong>#</strong></ion-col>
+        <ion-row>
+          <ion-col size="0.5"><strong>#</strong></ion-col>
           <ion-col size="2"><strong>Name</strong></ion-col>
           <ion-col size="5"><strong>Description</strong></ion-col>
           <ion-col size="1"><strong>Status</strong></ion-col>
           <ion-col size="1"><strong>Photo</strong></ion-col>
-          <ion-col [*isAdmin]="true" size="auto" class="ion-text-end"><strong>Actions</strong></ion-col>
+          <ion-col *isAdmin="true" size="auto" class="ion-text-end"><strong>Actions</strong></ion-col>
         </ion-row>
 
         <!-- Table Rows -->
         <ion-row *ngFor="let pet of pets">
-          <ion-col size="0.3">{{ pet.petId ?? 'N/A' }}</ion-col>
+          <ion-col size="0.5">{{ pet.petId ?? 'N/A' }}</ion-col>
           <ion-col size="2">{{ pet.name }}</ion-col>
           <ion-col size="5" class="ion-text-start">{{ pet.description }}</ion-col>
           <ion-col size="1">
@@ -84,7 +88,7 @@
           <ion-col size="1">
             <img [src]="pet.photoUrl" alt="{{ pet.name }}" class="pet-photo">
           </ion-col>
-          <ion-col [*isAdmin]="true" size="auto" class="ion-text-end">
+          <ion-col *isAdmin="true" size="auto" class="ion-text-end">
             <ion-button fill="clear" color="primary" (click)="onEditPet(pet)">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
             </ion-button>

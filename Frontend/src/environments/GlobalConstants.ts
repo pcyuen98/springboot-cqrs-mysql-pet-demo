@@ -15,6 +15,9 @@ export class GlobalConstants {
   public static spring_boot_test_url: string = environment.spring_boot_test_url
   public static spring_boot_url: string = environment.spring_boot_url
 
+  public static query_url: string = environment.query_url
+  public static command_url: string = environment.command_url
+
   public static globalBEError: any;
   public static globalBESuccess: any;
 }

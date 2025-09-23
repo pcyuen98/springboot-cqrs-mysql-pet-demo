@@ -29,7 +29,7 @@ public class PetCommandController {
 	private final PetWriteMapper petWriteMapper;
 
 	@PostMapping
-	public ResponseEntity<PetWriteEntity> createPet(@RequestBody PetWriteEntity pet) {
+	public ResponseEntity<PetWriteEntity> createPet(@Valid @RequestBody PetWriteEntity pet) {
 		PetWriteEntity created = service.createPet(pet);
 		return ResponseEntity.ok(created);
 	}

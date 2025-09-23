@@ -4,7 +4,6 @@
     <ion-row>
       <ion-col class="ion-text-center">
         <div style="display: inline-flex; align-items: center; gap: 10px;">
-          <ion-icon name="paw-outline" style="font-size: 30px; color: #98b4ec;"></ion-icon>
           <h2 style="margin: 0; color: rgb(75, 126, 158);font-weight: bold">PetStore Demo App</h2>
         </div>
       </ion-col>
@@ -14,7 +13,7 @@
     <ion-row *ngIf="isLogin()">
       <ion-col class="ion-text-center">
         <app-menu></app-menu>
-        <b (click)="logout()" class="footer-link clickable logout-green">Logout&nbsp;</b>
+        <b (click)="logout()" class="footer-link clickable logout-green" style="font-size: 0.9rem;">Logout&nbsp;</b>
       </ion-col>
     </ion-row>
 

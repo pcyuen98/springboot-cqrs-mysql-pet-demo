@@ -1,5 +1,5 @@
 <ion-footer class="ion-no-padding tight-footer">
-  <div *ngIf="!getGlobalError()" class="note grey-message" style="text-align: center;">
+  <div *ngIf="!getGlobalError() && !getGlobalSuccess()" class="note grey-message" style="text-align: center;">
     <blockquote style="font-size: 0.85rem;">
       ❝App includes KeyCloak, Spring Boot, MongoDB and MySQ usages❞
       <br>
@@ -20,11 +20,11 @@
     </blockquote>
   </div>
 
-  <ion-card *ngIf="getGlobalError()">
+  <ion-card *ngIf="getGlobalError() && !getGlobalSuccess()">
     <app-util-error-be #errorBEComponent [errorApp]="getGlobalError()" [pageBaseComponent]="this"></app-util-error-be>
   </ion-card>
 
-  <ion-card *ngIf="getGlobalSuccess()">
+  <ion-card *ngIf="getGlobalSuccess() && !getGlobalError()">
     <app-util-success-be #successBEComponent [pageBaseComponent]="this"></app-util-success-be>
 
   </ion-card>

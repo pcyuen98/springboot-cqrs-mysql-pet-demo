@@ -20,7 +20,7 @@ public class PhotoUrlValidator implements ConstraintValidator<ValidPhotoUrl, Str
     public boolean isValid(String value, ConstraintValidatorContext context) {
         boolean isValid = value != null
                 && !value.isBlank()
-                && value.length() <= 500
+                && value.length() <= 50
                 && value.matches(URL_REGEX);
 
         if (!isValid) {

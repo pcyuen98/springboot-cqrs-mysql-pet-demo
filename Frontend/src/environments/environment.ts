@@ -13,4 +13,6 @@ export const environment = {
   spring_boot_test_url: "http://localhost:7090/demo/test/v1",
   spring_boot_url:  "http://localhost:7090/demo/keycloak/v1",
   
+  query_url: "http://localhost:8082/pet/",
+  command_url: "http://localhost:8081/pet",
 };

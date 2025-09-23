@@ -11,6 +11,7 @@
     <module>common</module>
     <module>petstore-command-service</module>
     <module>petstore-query-service</module>
+    <module>Backend-Login</module>
   </modules>
 
   <properties>
