@@ -9,7 +9,7 @@ Command Query Responsibility Segregation (CQRS) is a design pattern that separat
 In traditional architectures, a single data model is often used for both read and write operations. This approach is straightforward and suitable for basic CRUD (Create, Read, Update, Delete) operations.
 
 <p align="center">
-<img src="https://learn.microsoft.com/en-us/azure/architecture/patterns/_images/command-and-query-responsibility-segregation-cqrs-tradition-crud.png" alt="Traditional CRUD Architecture" width="860" height="650">
+<img src="https://learn.microsoft.com/en-us/azure/architecture/patterns/_images/command-and-query-responsibility-segregation-cqrs-tradition-crud.png" alt="Traditional CRUD Architecture" width="460" height="350">
 </p>
 
 As applications grow, optimizing read and write operations on a single data model becomes challenging. Read and write operations often have different performance and scaling requirements. A traditional CRUD architecture doesn't account for this asymmetry, leading to several challenges:
