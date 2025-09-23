@@ -1,0 +1,11 @@
+.footer-header {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  padding: 5px 0;
+
+  ion-grid, ion-row, ion-col {
+    margin: 0;
+    padding: 0;
+  }
+
+}

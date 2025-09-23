@@ -63,7 +63,20 @@ services:
       - kafka
     networks:
       - petstore-net
- 
+
+  backend-login:
+    build: ./Backend-Login
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-write:3306/petstore_write
+      SPRING_DATASOURCE_USERNAME: petuser
+      SPRING_DATASOURCE_PASSWORD: petpass
+    ports:
+      - "7090:7090"
+    depends_on:
+      - mysql-write
+    networks:
+      - petstore-net
+
   mongodb-read:
     image: mongo:6.0
     container_name: mongodb_read
