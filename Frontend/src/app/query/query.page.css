@@ -1,0 +1,29 @@
+
+/* --------------------------
+   Pet Photo Styling
+-------------------------- */
+.pet-photo {
+  width: 100px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.pet-photo:hover {
+  transform: scale(5); /* enlarge on hover */
+  z-index: 10; 
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* writer.page.css or reader.page.css */
+ion-card-content ion-grid {
+  padding-left: 250px;  /* increase left padding */
+  padding-right: 250px; /* increase right padding */
+}
+
+ion-col.ion-text-end {
+  padding-left: 40px; /* adjust as needed */
+}

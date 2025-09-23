@@ -9,17 +9,12 @@ import { Action } from '../models/pet.action';
 import { GlobalConstants } from 'src/environments/GlobalConstants';
 import { urlValidator } from '../util/url-validator-highlight.directive';
 
-/**
- * Custom URL validator
- */
-
-
 @Component({
   selector: 'app-writer',
-  templateUrl: 'writer.page.html',
-  styleUrls: ['writer.page.css']
+  templateUrl: 'component.writer.page.html',
+  styleUrls: ['component.writer.page.css']
 })
-export class WriterPage extends PageBaseComponent implements OnInit {
+export class ComponentWriterPage extends PageBaseComponent implements OnInit {
 
   @Input() action: Action = Action.View;
   @Input() form?: FormGroup;

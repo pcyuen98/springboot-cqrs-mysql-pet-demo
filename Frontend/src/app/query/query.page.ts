@@ -4,7 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { Pet } from '../models/pet.model';
 import { PageBaseComponent } from '../util/page-base.component';
 import { PetService } from '../service/PetService';
-import { ComponentWriterPage } from '../writer/component.writer.page';
+import { WriterPage } from '../writer/component-writer.page';
 import { Action } from '../models/pet.action';
 
 export enum PetStatus {
@@ -18,7 +18,7 @@ export enum PetStatus {
   templateUrl: 'reader.page.html',
   styleUrls: ['reader.page.css']
 })
-export class ReaderPage extends PageBaseComponent implements OnInit {
+export class QueryPage extends PageBaseComponent implements OnInit {
   pets: Pet[] = [];
   selectedPet?: Pet;
   action: Action = Action.View;
@@ -54,7 +54,7 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
   ): Promise<void> {
 
     const modal = await this.modalCtrl.create({
-      component: ComponentWriterPage,
+      component: WriterPage,
       componentProps: { action, form: this.form, selectedPet: pet || null }
     });
 
@@ -94,6 +94,8 @@ export class ReaderPage extends PageBaseComponent implements OnInit {
       if (status === "ANY") { status = ""}
       this.pets = await this.petService.search(status, data)
     }
+
+    //await this.loadPets();
 
   }
 

@@ -46,7 +46,7 @@
             <ion-icon name="search-outline" slot="start"></ion-icon>
             
           </ion-button>
-          <ion-button [*isAdmin]="true" color="success" (click)="onAddPet()">
+          <ion-button *isAdmin color="success" (click)="onAddPet()">
             <ion-icon name="add-circle-outline" slot="start"></ion-icon>
             
           </ion-button>
@@ -68,7 +68,7 @@
           <ion-col size="5"><strong>Description</strong></ion-col>
           <ion-col size="1"><strong>Status</strong></ion-col>
           <ion-col size="1"><strong>Photo</strong></ion-col>
-          <ion-col [*isAdmin]="true" size="auto" class="ion-text-end"><strong>Actions</strong></ion-col>
+          <ion-col *isAdmin size="auto" class="ion-text-end"><strong>Actions</strong></ion-col>
         </ion-row>
 
         <!-- Table Rows -->
@@ -84,7 +84,7 @@
           <ion-col size="1">
             <img [src]="pet.photoUrl" alt="{{ pet.name }}" class="pet-photo">
           </ion-col>
-          <ion-col [*isAdmin]="true" size="auto" class="ion-text-end">
+          <ion-col *isAdmin size="auto" class="ion-text-end">
             <ion-button fill="clear" color="primary" (click)="onEditPet(pet)">
               <ion-icon slot="icon-only" name="create-outline"></ion-icon>
             </ion-button>
