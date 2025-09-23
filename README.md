@@ -31,13 +31,6 @@ This separation is beneficial in scenarios requiring a clear distinction between
 
 ### Understand Commands
 
-Commands should represent specific **business tasks** rather than low-level data updates.
-
-**Example:** In a hotel booking application:
-
-- Correct: `Book hotel room`
-- Incorrect: `Set ReservationStatus to Reserved`
-
 Commands capture the user's intent and align with business processes. To ensure commands succeed, consider refining client-side validation, server-side logic, and asynchronous processing.
 
 | Area of Refinement      | Recommendation |
@@ -60,11 +53,17 @@ Separating the read model from the write model simplifies system design by addre
 
 ### Solution
 
+<p align="center">
+<img src="/pic/CQRSDiagram.png" alt="Pets Store Arhictecture Diagram" width="460" height="300">
+</p>
+*Diagram that shows a CQRS architecture with separate read and write data stores.*
+
+Assuming the there is a huge number of users > 10 concurrent users for the but there is only a few admin users. Isolation of the services and data improves the needs and effectiveness of the scalability. 
+In this case, only admin or query services/data required to be scaled. System or secured data in the database also isolated from the public users.
+
 #### Separate Models in Different Data Stores
 
 A more advanced CQRS implementation uses **distinct data stores** for the read and write models. This allows you to scale each model independently and use different storage technologies. For example, you can use a **document database** for reads and a **relational database** for writes.
-
-*Diagram that shows a CQRS architecture with separate read and write data stores.*
 
 When using separate data stores, you must ensure synchronization between them. A common pattern is to have the write model **publish events** when updating the database, which the read model uses to refresh its data. For more information, see **Event-driven architecture**. Because message brokers and databases cannot typically participate in a single distributed transaction, **consistency challenges** may occur. For more details, see **Idempotent message processing**.
 
