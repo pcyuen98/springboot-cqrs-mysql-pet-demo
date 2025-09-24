@@ -7,13 +7,14 @@ import { HomePageRoutingModule } from './home-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HeaderModule } from '../shared-modules/header/header.module';
 import { FooterModule } from '../shared-modules/footer/footer.module';
+import { SliderComponent } from '../shared-modules/slider/slider.component';
 
 
 @NgModule({
   imports: [CommonModule, IonicModule, HeaderModule, HomePageRoutingModule, ReactiveFormsModule,
-    FooterModule, NgOptimizedImage
+    FooterModule, NgOptimizedImage, 
   ],
-  declarations: [ HomePage],
+  declarations: [ HomePage, SliderComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class HomePageModule {}

@@ -1,0 +1,27 @@
+<div class="slider">
+  <ul class="slider__wrapper" [style.transform]="'translateX(-' + currentSlide * (100 / sliderData.length) + '%)'">
+
+    <li *ngFor="let slide of sliderData" class="slide" [class.slide--current]="slide.index === currentSlide"
+      [class.slide--next]="slide.index === currentSlide + 1" [class.slide--previous]="slide.index === currentSlide - 1"
+      (click)="onSlideClick(slide.index)">
+      <div class="slide__image-wrapper">
+        <img class="slide__image" [src]="slide.src" [attr.alt]="slide.headline" style="opacity: 1; cursor: pointer;"
+          (click)="openImage(slide.src)" />
+      </div>
+
+    </li>
+  </ul>
+
+  <div class="slider__controls">
+    <button class="btn btn--previous" title="Go to previous slide" (click)="onPreviousClick()">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+      </svg>
+    </button>
+    <button class="btn btn--next" title="Go to next slide" (click)="onNextClick()">
+      <svg class="icon" viewBox="0 0 24 24">
+        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+      </svg>
+    </button>
+  </div>
+</div>
