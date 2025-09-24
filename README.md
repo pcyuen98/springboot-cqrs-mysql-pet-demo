@@ -56,7 +56,7 @@ Separating the read model from the write model simplifies system design by addre
 ### Solution
 
 <p align="center">
-<img src="/doc/CQRSDiagram1.png" alt="Pets Store Arhictecture Diagram" width="860" height="650">
+<img src="/doc/CQRSDiagram.png" alt="Pets Store Arhictecture Diagram" width="860" height="650">
 </p>
 
  **Diagram that shows a CQRS architecture with separate read and write data stores.**
