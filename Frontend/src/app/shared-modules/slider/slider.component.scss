@@ -80,13 +80,14 @@
 // =========================
 
 .slider {
-  --slide-size: 70vmin;
-  --slide-margin: 4vmin;
+  --slide-size: 62vmin;
+  --slide-margin: 5vmin;
   
   height: var(--slide-size);
   margin: 0 auto;
   position: relative;
   width: var(--slide-size);
+  
 }
 
 .slider__wrapper {

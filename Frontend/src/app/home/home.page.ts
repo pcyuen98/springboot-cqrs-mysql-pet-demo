@@ -14,35 +14,24 @@ export class HomePage extends PageBaseComponent {
   }
 
    sliderData: SlideData[] = [
-  {
+      {
     index: 0,
-    headline: 'Miouw',
+    headline: 'petstore',
+    
+    src: 'assets/pic/petstore.jpg'
+  },
+  {
+    index: 1,
+    headline: 'Sequence Diagram',
     
     src: 'assets/pic/spring-boot-keycloak-mysql.jpg'
   },
   {
-    index: 1,
-    headline: 'In The Wilderness',
+    index: 2,
+    headline: 'CQRS',
     
     src: 'assets/pic/CQRSDiagram.png'
   },
-  {
-    index: 2,
-    headline: 'For Your Current Mood',
-    
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/guitar.jpg'
-  },
-  {
-    index: 3,
-    headline: 'Focus On The Writing',
-    
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/typewriter.jpg'
-  },
-  {
-    index: 4,
-    headline: 'Focus On The Writing',
-    
-    src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/225363/typewriter.jpg'
-  }
+
 ]
 }
