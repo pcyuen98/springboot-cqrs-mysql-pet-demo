@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      {{ action === actions.Add ? 'Add New Pet' : (action === actions.Edit ? 'Edit Pet' : 'Delete Pet') }}
+      {{ getTitle() }}
     </ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cancel()">Close</ion-button>
@@ -11,49 +11,77 @@
 
 <ion-content class="ion-padding">
 
-  <!-- Add/Edit Form -->
-  <form *ngIf="action === actions.Add || action === actions.Edit" [formGroup]="form" (ngSubmit)="onSubmitPet()">
+  <!-- ✅ Add / Edit Form -->
+  <form *ngIf="isFormMode()" [formGroup]="form" (ngSubmit)="onSubmitPet()">
 
+    <!-- Name -->
     <ion-item highlightInvalid>
-      <ion-label position="floating"> <span class="required">*</span> Name</ion-label>
+      <ion-label position="floating">
+        <span class="required">*</span> Name
+      </ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
 
-    <!-- Description Text Area -->
+    <!-- Description -->
     <ion-item highlightInvalid>
-      <ion-label position="floating"> <span class="required">*</span> Description</ion-label>
-      <ion-textarea formControlName="description" rows="6" auto-grow="true"
-        placeholder="Enter description here..."></ion-textarea>
+      <ion-label position="floating">
+        <span class="required">*</span> Description
+      </ion-label>
+      <ion-textarea
+        formControlName="description"
+        rows="6"
+        auto-grow="true"
+        placeholder="Enter description here...">
+      </ion-textarea>
     </ion-item>
 
+    <!-- Status -->
     <ion-item>
-      <ion-label> <span class="required">*</span> Status</ion-label>
-      <ion-select formControlName="status" interface="popover" placeholder="Select Status">
-        <ion-select-option *ngFor="let s of petStatuses" [value]="s">{{ s }}</ion-select-option>
+      <ion-label>
+        <span class="required">*</span> Status
+      </ion-label>
+      <ion-select
+        formControlName="status"
+        interface="popover"
+        placeholder="Select Status">
+        <ion-select-option *ngFor="let s of petStatuses" [value]="s">
+          {{ s }}
+        </ion-select-option>
       </ion-select>
     </ion-item>
 
-    <app-url-validator-highlight [control]="form.get('photoUrl')" label="Photo URL"
+    <!-- Photo URL -->
+    <app-url-validator-highlight
+      [control]="form.get('photoUrl')"
+      label="Photo URL"
       errorMessage="Please enter a valid URL starting with http:// or https://">
     </app-url-validator-highlight>
 
+    <!-- Actions -->
     <div class="ion-text-center ion-margin-top">
-      <ion-button type="submit" [disabled]="form.invalid" color="primary">Save</ion-button>
-      <ion-button type="button" color="medium" (click)="cancel()">Cancel</ion-button>
+      <ion-button type="submit" [disabled]="form.invalid" color="primary">
+        Save
+      </ion-button>
+      <ion-button type="button" color="medium" (click)="cancel()">
+        Cancel
+      </ion-button>
     </div>
   </form>
 
-  <!-- Delete Confirmation -->
-  <div *ngIf="action === actions.Delete && selectedPet" class="ion-text-center">
-    <p class="ion-margin-top">
-      You are about to delete
-      <strong>{{ selectedPet.name }} (ID: {{ selectedPet.petId ?? 'N/A' }})</strong>.
-    </p>
-    <p class="ion-margin-bottom"><strong>Are you sure?</strong></p>
-    <div>
-      <ion-button color="danger" (click)="deletePet()">Delete</ion-button>
-      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+  <!-- ✅ Delete Confirmation -->
+  <ng-container *ngIf="isDeleteMode() && selectedPet">
+    <div class="ion-text-center">
+      <p class="ion-margin-top">
+        You are about to delete
+        <strong>{{ selectedPet.name }} (ID: {{ selectedPet.petId ?? 'N/A' }})</strong>.
+      </p>
+      <p class="ion-margin-bottom"><strong>Are you sure?</strong></p>
+
+      <div>
+        <ion-button color="danger" (click)="deletePet()">Delete</ion-button>
+        <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+      </div>
     </div>
-  </div>
+  </ng-container>
 
 </ion-content>

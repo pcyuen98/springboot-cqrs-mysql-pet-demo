@@ -7,4 +7,5 @@ com\example\petstore\config\JwtConverterProperties.class
 com\example\petstore\exception\GlobalControllerExceptionHandler.class
 com\example\petstore\common\model\Status.class
 com\example\petstore\common\exception\DemoAppException.class
+com\example\petstore\config\SwaggerConfig.class
 com\example\petstore\config\BeanLogger.class

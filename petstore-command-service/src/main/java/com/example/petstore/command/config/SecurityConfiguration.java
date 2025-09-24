@@ -21,15 +21,29 @@ public class SecurityConfiguration {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	    http.cors().and().authorizeHttpRequests()
+	        // allow swagger-ui and api-docs without authentication
+	        .requestMatchers(
+	            "/swagger-ui/**",
+	            "/swagger-ui.html",
+	            "/v3/api-docs/**",
+	            "/api-docs/**",
+	            "/swagger-resources/**",
+	            "/webjars/**"
+	        ).permitAll()
 
-		http.cors().and().authorizeHttpRequests()
-		        .requestMatchers("/pet**").hasRole("admin")
-				.requestMatchers(HttpMethod.GET, "/user/**", "/pet/**").hasAuthority("SCOPE_profile")
-				.requestMatchers(HttpMethod.POST, "/pet/**").hasAuthority("SCOPE_profile").anyRequest().authenticated()
-				.and().oauth2ResourceServer().jwt();
+	        // your existing security rules
+	        .requestMatchers("/pet**").hasRole("admin")
+	        .requestMatchers(HttpMethod.GET, "/user/**", "/pet/**").hasAuthority("SCOPE_profile")
+	        .requestMatchers(HttpMethod.POST, "/pet/**").hasAuthority("SCOPE_profile")
+	        .anyRequest().authenticated()
+	        
+	        .and().oauth2ResourceServer().jwt();
 
-		http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-		http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)));
-		return http.build();
+	    http.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+	    http.oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtConverter)));
+
+	    return http.build();
 	}
+
 }

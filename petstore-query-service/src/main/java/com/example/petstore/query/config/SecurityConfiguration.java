@@ -17,12 +17,16 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSecurity
 public class SecurityConfiguration {
 	private final JwtConverter jwtConverter;
-	
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.cors().and().authorizeHttpRequests()
-		        .requestMatchers("/pet**").hasRole("reader")
+				// allow swagger-ui and api-docs without authentication
+				.requestMatchers("/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**", "/api-docs/**",
+						"/swagger-resources/**", "/webjars/**")
+				
+				.permitAll().requestMatchers("/pet**").hasRole("reader")
 				.requestMatchers(HttpMethod.GET, "/user/**", "/pet/**").hasAuthority("SCOPE_profile")
 				.requestMatchers(HttpMethod.POST, "/pet/**").hasAuthority("SCOPE_profile").anyRequest().authenticated()
 				.and().oauth2ResourceServer().jwt();

@@ -2,17 +2,16 @@
 
 <ion-content>
   <!-- Header & Actions -->
-  <ion-card-content style="padding:0;">
-    <ion-grid style="margin:0; --ion-grid-padding:0; --ion-grid-gap:20;">
+  <ion-card-content>
+    <ion-grid>
       <ion-row class="ion-align-items-center">
-
         <!-- Title -->
         <ion-col size="2" class="ion-text-start">
-          <h1 class="page-title" style="display: flex; align-items: center; gap: 8px; font-size: 28px; color: #032976;">
-            <ion-icon name="paw-outline" style="font-size: 42px; color: #032976;"></ion-icon>
-            <span style="font-weight: bold; font-size: 22px;">
+          <h1 class="page-title">
+            <ion-icon name="paw-outline"></ion-icon>
+            <span>
               {{ pets.length }}
-              <small style="font-weight: normal; color: #666;">pets</small>
+              <small>pets</small>
             </span>
           </h1>
         </ion-col>
@@ -47,15 +46,12 @@
         <!-- Buttons -->
         <ion-col size="1.5" class="ion-text-right">
           <ion-button color="primary" (click)="search(petId.value, petStatus.value, petData.value)">
-            <ion-icon name="search-outline" ></ion-icon>
-
+            <ion-icon name="search-outline"></ion-icon>
           </ion-button>
           <ion-button *isAdmin="true" color="success" (click)="onAddPet()">
             <ion-icon name="add-outline"></ion-icon>
-
           </ion-button>
         </ion-col>
-
       </ion-row>
     </ion-grid>
   </ion-card-content>
@@ -64,7 +60,6 @@
   <ion-card *ngIf="pets.length">
     <ion-card-content>
       <ion-grid>
-
         <!-- Table Header -->
         <ion-row>
           <ion-col size="0.5"><strong>#</strong></ion-col>
@@ -97,11 +92,9 @@
             </ion-button>
           </ion-col>
         </ion-row>
-
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
 </ion-content>
 
 <app-footer></app-footer>

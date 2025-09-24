@@ -69,9 +69,9 @@ services:
   backend-login:
     build: ./Backend-Login
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-write:3306/petstore_write
-      SPRING_DATASOURCE_USERNAME: petuser
-      SPRING_DATASOURCE_PASSWORD: petpass
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-write:3306/keycloak?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 1234
     ports:
       - "7090:7090"
     depends_on:
