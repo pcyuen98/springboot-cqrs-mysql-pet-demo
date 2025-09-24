@@ -37,8 +37,8 @@ Commands capture the user's intent and align with business processes. To ensure 
 
 | Area of Refinement      | Recommendation |
 |-------------------------|----------------|
-| Client-side validation  | Validate conditions before sending commands to prevent obvious failures. For example, if no rooms are available, disable the "Book" button and provide a clear, user-friendly message explaining why booking isn't possible. This reduces unnecessary server requests and enhances user experience. |
-| Server-side logic       | Enhance business logic to handle edge cases and failures gracefully. For instance, to address race conditions such as multiple users attempting to book the last available room, consider adding users to a waiting list or suggesting alternatives. |
+| Client-side validation  | Validate conditions before sending commands to prevent obvious failures. For example, if no pets are available for adopting, disable the "Adopt" button and provide a clear, user-friendly message explaining why booking isn't possible. This reduces unnecessary server requests and enhances user experience. |
+| Server-side logic       | Enhance business logic to handle edge cases and failures gracefully. For instance, to address race conditions such as multiple users attempting to adopt the available pet, consider adding users to a waiting list or suggesting alternatives. |
 | Asynchronous processing | Process commands asynchronously by placing them in a queue, instead of handling them synchronously. |
 
 ### Understand Queries
