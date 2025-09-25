@@ -6,11 +6,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class CorsConfig implements WebMvcConfigurer {
-	@Override
-	public void addCorsMappings(CorsRegistry cors) {
-		cors.addMapping("/**") // allow all paths
-				.allowedOrigins("*") // allow all origins
-				.allowedMethods("*") // allow all HTTP methods
-				.allowedHeaders("*"); // allow all headers
-	}
+    @Override
+    public void addCorsMappings(CorsRegistry cors) {
+        cors.addMapping("/pet/**") // allow only /pet/* paths
+            .allowedOrigins("http://localhost:4200") // ✅ specify frontend origin instead of "*"
+            .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // restrict to needed HTTP methods
+            .allowedHeaders("*"); // allow all headers
+    }
 }

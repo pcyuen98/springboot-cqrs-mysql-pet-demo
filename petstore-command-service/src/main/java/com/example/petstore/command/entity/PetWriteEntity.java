@@ -2,13 +2,11 @@ package com.example.petstore.command.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.List;
-
 import com.example.petstore.common.model.Status;
 
-@Entity
 @Data
+@Entity
 @Table(name = "pets")
 public class PetWriteEntity {
 
@@ -17,8 +15,9 @@ public class PetWriteEntity {
     @Column(name = "pet_id", nullable = false)
     private Long petId;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL) // ✅ cascade so Category is saved
+    @JoinColumn(name = "category_id", nullable = false,
+            foreignKey = @ForeignKey(name = "fk_pet_category"))
     private CategoryEntity category;
 
     @Column(nullable = false)
@@ -27,18 +26,18 @@ public class PetWriteEntity {
     @Column(name = "photo_url", nullable = false, length = 500)
     private String photoUrl;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL) // ✅ cascade so Tags are saved
     @JoinTable(
-        name = "pet_tags",
-        joinColumns = @JoinColumn(name = "pet_id"),
-        inverseJoinColumns = @JoinColumn(name = "tag_id")
+            name = "pet_tags",
+            joinColumns = @JoinColumn(name = "pet_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private List<TagEntity> tags;  
+    private List<TagEntity> tags;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status;
-    
+
     @Column(length = 2000, nullable = false)
-    private String description;   
+    private String description;
 }

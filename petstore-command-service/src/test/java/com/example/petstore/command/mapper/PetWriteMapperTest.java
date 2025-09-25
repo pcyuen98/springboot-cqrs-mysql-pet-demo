@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.petstore.command.entity.CategoryEntity;
 import com.example.petstore.command.entity.PetWriteEntity;
@@ -13,6 +14,7 @@ import com.example.petstore.command.model.PetWrite;
 import com.example.petstore.common.model.Status;
 
 @SpringBootTest
+@ActiveProfiles("test") // Uses application-test.properties for H2 setup
 class PetWriteMapperTest {
 
 	@Autowired
@@ -31,6 +33,7 @@ class PetWriteMapperTest {
         // Entity
         sampleEntity = new PetWriteEntity();
         sampleEntity.setPetId(10L);
+        sampleEntity.setDescription("A very friendly dog");
         sampleEntity.setCategory(categoryEntity);
         sampleEntity.setName("Buddy");
         sampleEntity.setStatus(Status.AVAILABLE);

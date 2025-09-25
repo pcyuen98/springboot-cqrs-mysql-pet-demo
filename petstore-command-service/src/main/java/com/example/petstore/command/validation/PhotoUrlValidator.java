@@ -5,8 +5,8 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class PhotoUrlValidator implements ConstraintValidator<ValidPhotoUrl, String> {
-
-	private static final String URL_REGEX = "^http[s]?://.*$";
+                                            
+	private static final String URL_REGEX = "^https?://.*$";
 
     private String message;
 
