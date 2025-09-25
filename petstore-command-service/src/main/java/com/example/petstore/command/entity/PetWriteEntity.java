@@ -15,7 +15,7 @@ public class PetWriteEntity {
     @Column(name = "pet_id", nullable = false)
     private Long petId;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL) // ✅ cascade so Category is saved
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pet_category"))
     private CategoryEntity category;
@@ -26,7 +26,7 @@ public class PetWriteEntity {
     @Column(name = "photo_url", nullable = false, length = 500)
     private String photoUrl;
 
-    @ManyToMany(cascade = CascadeType.ALL) // ✅ cascade so Tags are saved
+    @ManyToMany
     @JoinTable(
             name = "pet_tags",
             joinColumns = @JoinColumn(name = "pet_id"),
