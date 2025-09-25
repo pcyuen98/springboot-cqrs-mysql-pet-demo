@@ -2,6 +2,7 @@ package com.example.petstore.query.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@Profile("!test")  // 👈 disables this config whenever the "test" profile is active
+
 public class SecurityConfiguration {
 	private final JwtConverter jwtConverter;
 

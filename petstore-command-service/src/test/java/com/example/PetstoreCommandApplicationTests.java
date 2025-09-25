@@ -4,27 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScan.Filter;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(
-    classes = { PetstoreCommandApplication.class, PetstoreCommandApplicationTests.TestConfig.class },
+    classes = { PetstoreCommandApplication.class},
     webEnvironment = SpringBootTest.WebEnvironment.NONE
 )
 @ActiveProfiles("test")
 class PetstoreCommandApplicationTests {
-
-    // ✅ Exclude everything in controller packages
-    @TestConfiguration
-    @ComponentScan(
-        excludeFilters = {
-            @Filter(type = FilterType.REGEX, pattern = ".*\\.controller\\..*")
-        }
-    )
-    static class TestConfig {}
 
     @Test
     void contextLoads() {
