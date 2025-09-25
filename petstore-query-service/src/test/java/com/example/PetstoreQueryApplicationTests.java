@@ -13,12 +13,6 @@ import org.springframework.test.context.ActiveProfiles;
 	@ActiveProfiles("test")
 class PetstoreQueryApplicationTests {
 
-
-    @Test
-    void contextLoads() {
-        // Verifies Spring context starts
-    }
-
     @Test
     void mainMethodRuns() {
         // Covers PetstoreQueryApplication.main()

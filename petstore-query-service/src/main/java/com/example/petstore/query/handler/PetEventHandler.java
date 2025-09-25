@@ -4,6 +4,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import com.example.petstore.common.events.PetCreatedEvent;
+import com.example.petstore.common.exception.DemoAppException;
 import com.example.petstore.common.model.Status;
 import com.example.petstore.query.model.PetReadEntity;
 import com.example.petstore.query.repository.PetReadRepository;
@@ -41,7 +42,7 @@ public class PetEventHandler {
 	        
 
 	    } catch (Exception e) {
-	        log.error("Error parsing event JSON", e);
+	    	throw new DemoAppException("Error processing Kafka event", e);
 	    }
 	}
 }
