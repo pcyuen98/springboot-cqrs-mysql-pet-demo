@@ -31,22 +31,6 @@ The CQRS pattern addresses these issues by separating **write operations (comman
 
 This separation is beneficial in scenarios requiring a clear distinction between commands and reads.
 
-### Understand Commands
-
-Commands capture the user's intent and align with business processes. To ensure commands succeed, consider refining client-side validation, server-side logic, and asynchronous processing.
-
-| Area of Refinement      | Recommendation |
-|-------------------------|----------------|
-| Client-side validation  | Validate conditions before sending commands to prevent obvious failures. For example, if no pets are available for adopting, disable the "Adopt" button and provide a clear, user-friendly message explaining why booking isn't possible. This reduces unnecessary server requests and enhances user experience. |
-| Server-side logic       | Enhance business logic to handle edge cases and failures gracefully. For instance, to address race conditions such as multiple users attempting to adopt the available pet, consider adding users to a waiting list or suggesting alternatives. |
-| Asynchronous processing | Process commands asynchronously by placing them in a queue, instead of handling them synchronously. |
-
-### Understand Queries
-
-Queries **never alter data**. They return **Data Transfer Objects (DTOs)** that present required data in a convenient format, without any domain logic. This distinct separation simplifies system design and implementation.
-
----
-
 ## Separate Read Models and Write Models
 
 Separating the read model from the write model simplifies system design by addressing specific concerns for **data writes** and **data reads**. This separation improves clarity, scalability, and performance but introduces trade-offs:
