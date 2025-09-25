@@ -60,7 +60,7 @@ class PhotoUrlValidatorTest {
 
     @Test
     void whenInvalidUrl_thenThrowsDemoAppException() {
-        String url = "ftp://example.com/image.jpg"; // ❌ invalid
+        String url = "ftp://example.com/image.jpg";
         ConstraintValidatorContext context = mock(ConstraintValidatorContext.class);
 
         DemoAppException ex = assertThrows(DemoAppException.class,
