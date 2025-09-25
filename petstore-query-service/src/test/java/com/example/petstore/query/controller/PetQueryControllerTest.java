@@ -18,7 +18,7 @@ import com.example.petstore.config.JwtConverter;
 import com.example.petstore.query.service.PetQueryService;
 
 @WebMvcTest(controllers = PetQueryController.class)
-@ActiveProfiles("mvc-test") // 👈 separate profile for MVC tests
+@ActiveProfiles("test") // 👈 separate profile for MVC tests
 @Import(PetQueryControllerTest.NoSecurityConfig.class) // ✅ disable security only here
 class PetQueryControllerTest {
 

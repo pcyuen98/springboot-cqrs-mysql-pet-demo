@@ -14,11 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 class PetstoreCommandApplicationTests {
 
     @Test
-    void contextLoads() {
-        // Verifies Spring context starts with minimal scan
-    }
-
-    @Test
     void mainMethodRuns() {
         // Covers PetstoreCommandApplication.main()
         assertDoesNotThrow(() -> PetstoreCommandApplication.main(new String[]{}));
