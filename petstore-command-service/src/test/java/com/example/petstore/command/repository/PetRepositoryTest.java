@@ -22,21 +22,29 @@ class PetRepositoryTest {
     @Autowired
     private PetRepository petRepository;
 
+	@Autowired
+	private CategoryRepository categoryRepository;
+	
+	@Autowired
+	private TagRepository tagRepository;
+	
     /**
      * Helper method to create and persist a Pet with category + tags.
      */
-    private PetWriteEntity createAndSavePet(String petName, String categoryName) {
+    private PetWriteEntity createAndSavePet(String petName, String categoryName, long id) {
         // Category
         CategoryEntity category = new CategoryEntity();
+        category.setId(id);
         category.setName(categoryName);
-
+        categoryRepository.save(category);
         // Tags
         TagEntity tag1 = new TagEntity();
         tag1.setName("Friendly");
 
         TagEntity tag2 = new TagEntity();
         tag2.setName("Small");
-
+        tagRepository.save(tag1);
+        tagRepository.save(tag2);
         // Pet
         PetWriteEntity pet = new PetWriteEntity();
         pet.setName(petName);
@@ -52,7 +60,7 @@ class PetRepositoryTest {
     @Test
     void testSaveAndFindPet() {
         // given
-        PetWriteEntity savedPet = createAndSavePet("Buddy", "Dogs");
+        PetWriteEntity savedPet = createAndSavePet("Buddy", "Dogs",2);
 
         // then
         assertThat(savedPet.getPetId()).isNotNull();
@@ -69,7 +77,7 @@ class PetRepositoryTest {
     @Test
     void testDeletePet() {
         // given
-        PetWriteEntity savedPet = createAndSavePet("Kitty", "Cats");
+        PetWriteEntity savedPet = createAndSavePet("Kitty", "Cats",1);
 
         // when
         petRepository.deleteById(savedPet.getPetId());

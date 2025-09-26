@@ -15,7 +15,9 @@ public class PetWriteEntity {
     @Column(name = "pet_id", nullable = false)
     private Long petId;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    // FIX: Removed CascadeType.PERSIST. When saving a new Pet, 
+    // if the Category has an ID, we only want to MERGE/link it, not PERSIST it as new.
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pet_category"))
     private CategoryEntity category;
@@ -26,7 +28,8 @@ public class PetWriteEntity {
     @Column(name = "photo_url", nullable = false, length = 500)
     private String photoUrl;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    // FIX: Removed CascadeType.PERSIST for the same reason as Category.
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "pet_tags",
             joinColumns = @JoinColumn(name = "pet_id"),
