@@ -3,18 +3,15 @@ package com.demo.keycloak.mapper;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mapstruct.factory.Mappers;
 
 import com.demo.keycloak.model.bean.UserDTO;
 import com.demo.keycloak.model.entity.UserEntity;
 import com.demo.keycloak.model.entity.mapper.UserSMapper;
 
-@SpringBootTest
 class UserMapperTest {
 
-    @Autowired
-    private UserSMapper userSMapper;
+	private final UserSMapper userSMapper = Mappers.getMapper(UserSMapper.class);
     
     @Test
     void toEntityTest() {

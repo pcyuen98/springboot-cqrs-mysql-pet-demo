@@ -3,8 +3,7 @@ package com.demo.keycloak.mapper;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mapstruct.factory.Mappers;
 
 import com.demo.keycloak.model.bean.FeedbackDTO;
 import com.demo.keycloak.model.bean.UserDTO;
@@ -12,11 +11,9 @@ import com.demo.keycloak.model.entity.FeedbackEntity;
 import com.demo.keycloak.model.entity.UserEntity;
 import com.demo.keycloak.model.entity.mapper.FeedbackSMapper;
 
-@SpringBootTest
 class FeedbackMapperTest {
 
-    @Autowired
-    private FeedbackSMapper feedbackSMapper;
+	private final FeedbackSMapper feedbackSMapper = Mappers.getMapper(FeedbackSMapper.class);
     
     @Test
     void toEntityTest() {

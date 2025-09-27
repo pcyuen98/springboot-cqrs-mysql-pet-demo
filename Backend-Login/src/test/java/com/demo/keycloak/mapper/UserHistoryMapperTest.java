@@ -3,8 +3,7 @@ package com.demo.keycloak.mapper;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mapstruct.factory.Mappers;
 
 import com.demo.keycloak.model.bean.UserDTO;
 import com.demo.keycloak.model.bean.UserHistoryDTO;
@@ -12,11 +11,9 @@ import com.demo.keycloak.model.entity.UserEntity;
 import com.demo.keycloak.model.entity.UserHistoryEntity;
 import com.demo.keycloak.model.entity.mapper.UserHistorySMapper;
 
-@SpringBootTest
 class UserHistoryMapperTest {
 
-    @Autowired
-    private UserHistorySMapper userHistorySMapper;
+	private final UserHistorySMapper userHistorySMapper = Mappers.getMapper(UserHistorySMapper.class);
     
     @Test
     void toEntityTest() {
