@@ -30,7 +30,9 @@ public class PetCommandController {
 
 	@PostMapping
 	public ResponseEntity<PetWriteEntity> createPet(@Valid @RequestBody PetWriteEntity pet) {
+		log.info("Received request to create pet: {}", pet);
 		PetWriteEntity created = service.createPet(pet);
+		log.info("Pet created successfully: {}", created);
 		return ResponseEntity.ok(created);
 	}
 	
