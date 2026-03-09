@@ -1,16 +1,12 @@
 package com.example.petstore.command.repository;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.petstore.command.entity.CategoryEntity;
 import com.example.petstore.command.entity.PetWriteEntity;
-import com.example.petstore.command.entity.TagEntity;
 import com.example.petstore.command.service.PetInsertService;
-import com.example.petstore.common.model.Status;
+import com.example.petstore.command.service.PetInsertService.SharedData;
 
 @SpringBootTest
 class PetRepositoryBatchTest {
@@ -18,37 +14,23 @@ class PetRepositoryBatchTest {
     @Autowired
     private PetInsertService petInsertService;
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private TagRepository tagRepository;
-
     @Test
     void testSequentialInsertPerformance() {
-
-        // Prepare shared data
-        CategoryEntity category = new CategoryEntity();
-        category.setName("Dogs");
-        CategoryEntity savedCategory = categoryRepository.saveAndFlush(category);
-
-        TagEntity tag = new TagEntity();
-        tag.setName("Friendly");
-        TagEntity savedTag = tagRepository.saveAndFlush(tag);
+        // 1. Prepare shared data using the new Record-based method
+        SharedData sharedData = petInsertService.prepareSharedData();
 
         int totalRecords = 1000;
         long start = System.currentTimeMillis();
 
-        // Standard sequential loop
+        // 2. Standard sequential loop
         for (int i = 0; i < totalRecords; i++) {
             try {
-                PetWriteEntity pet = new PetWriteEntity();
-                pet.setName("Pet " + i);
-                pet.setPhotoUrl("http://example.com/" + i + ".jpg");
-                pet.setCategory(savedCategory);
-                pet.setTags(List.of(savedTag));
-                pet.setStatus(Status.AVAILABLE);
-                pet.setDescription("Description " + i);
+                // 3. Use the helper method and pass entities from the record
+                PetWriteEntity pet = petInsertService.createPetEntity(
+                    i, 
+                    sharedData.category(), 
+                    sharedData.tag()
+                );
 
                 petInsertService.insertPet(pet);
             } catch (Exception e) {
