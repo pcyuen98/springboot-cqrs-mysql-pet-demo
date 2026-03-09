@@ -47,10 +47,11 @@ public class PetInsertService {
 
     /**
      * Insert a single Pet entity inside its own transaction.
+     * @return 
      */
     @Transactional
-    public void insertPet(PetWriteEntity pet) {
-        petRepository.save(pet);
+    public PetWriteEntity insertPet(PetWriteEntity pet) {
+        return petRepository.save(pet);
     }
     
     /**

@@ -1,19 +1,20 @@
 package com.example.petstore.command.controller;
 
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import java.util.concurrent.ThreadLocalRandom;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.service.PetInsertService;
+import com.example.petstore.command.service.PetInsertService.SharedData;
 
-import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Controller for managing Pet lifecycle operations.
@@ -26,7 +27,7 @@ import jakarta.validation.Valid;
 @RequiredArgsConstructor
 public class PetTestController {
 
-    private final PetInsertService petService;
+    private final PetInsertService petInsertService;
 
     /**
      * Creates a new pet entry.
@@ -35,13 +36,14 @@ public class PetTestController {
      */
     @PostMapping
     public ResponseEntity<PetWriteEntity> createPet() {
-        log.info("Received request to create pet: {}", pet);
+    	SharedData sharedData = petInsertService.prepareSharedData();
 
-        // All the logic for finding Categories, Tags, and setting 
-        // defaults is now encapsulated within the Service.
-        PetWriteEntity savedPet = petService.createPetEntity();
-
-        log.info("Pet created successfully with ID: {}", savedPet.getId());
+    	// Inside your createPet method:
+    	int randomId = ThreadLocalRandom.current().nextInt(1, 1000000); // Range 1 to 999,999
+    	PetWriteEntity savedPet = petInsertService.insertPet(
+    	    petInsertService.createPetEntity(randomId, sharedData.category(), sharedData.tag())
+    	);
+        log.info("Pet created successfully with ID: {}", savedPet.getPetId());
         
         return ResponseEntity
                 .status(HttpStatus.CREATED)
