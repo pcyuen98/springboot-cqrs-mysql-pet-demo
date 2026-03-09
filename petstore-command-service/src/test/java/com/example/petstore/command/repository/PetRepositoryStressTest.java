@@ -12,14 +12,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.example.petstore.command.entity.CategoryEntity;
 import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.entity.TagEntity;
-import com.example.petstore.command.service.PetInsertService;
+import com.example.petstore.command.service.PetTestInsertService;
 import com.example.petstore.common.model.Status;
 
 @SpringBootTest
 class PetRepositoryStressTest {
 
     @Autowired
-    private PetInsertService petInsertService;
+    private PetTestInsertService petInsertService;
 
     @Autowired
     private CategoryRepository categoryRepository;

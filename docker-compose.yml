@@ -81,6 +81,7 @@ services:
 
   mongodb-read:
     image: mongo:6.0
+    command: ["--auth", "--bind_ip_all"] # This replaces the .conf file
     container_name: mongodb_read
     ports:
       - "27017:27017"

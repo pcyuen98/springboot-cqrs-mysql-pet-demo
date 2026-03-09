@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.petstore.command.entity.PetWriteEntity;
-import com.example.petstore.command.service.PetInsertService;
-import com.example.petstore.command.service.PetInsertService.SharedData;
+import com.example.petstore.command.service.PetTestInsertService;
+import com.example.petstore.command.service.PetTestInsertService.SharedData;
 import com.example.petstore.command.service.PetMetricsService;
+import com.example.petstore.command.service.PetService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class PetTestController {
 
-    private final PetInsertService petInsertService;
+    private final PetTestInsertService petInsertService;
+    private final PetService petService;
     private final PetMetricsService metricsService;
 
     /**
@@ -51,6 +53,29 @@ public class PetTestController {
             metricsService.recordInsert(duration);
 
             log.info("Pet created successfully with ID: {} in {}ms", savedPet.getPetId(), duration);
+            
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(savedPet);
+        } catch (Exception e) {
+            log.error("Failed to create pet: {}", e.getMessage());
+            throw e;
+        }
+    }
+    
+    @GetMapping("/actual")
+    public ResponseEntity<PetWriteEntity> createActualPet() {
+        
+        try {
+            SharedData sharedData = petInsertService.prepareSharedData();
+            int randomId = ThreadLocalRandom.current().nextInt(1, 1000000);
+            
+            PetWriteEntity savedPet =  petService.createPet(
+				petInsertService.createPetEntity(randomId, sharedData.category(), sharedData.tag())
+			);
+
+
+            log.info("Actual Pet created successfully with ID: {} ", savedPet.getPetId());
             
             return ResponseEntity
                     .status(HttpStatus.CREATED)

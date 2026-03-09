@@ -10,18 +10,15 @@ import com.example.petstore.common.events.PetCreatedEvent;
 import com.example.petstore.common.exception.DemoAppException;
 import com.example.petstore.common.model.Status;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PetService {
 	private final PetRepository repository;
 	private final KafkaTemplate<String, PetCreatedEvent> kafkaTemplate;
-
-	public PetService(PetRepository repository, KafkaTemplate<String, PetCreatedEvent> kafkaTemplate) {
-		this.repository = repository;
-		this.kafkaTemplate = kafkaTemplate;
-	}
 
 	@Transactional
 	public PetWriteEntity createPet(PetWriteEntity pet) {

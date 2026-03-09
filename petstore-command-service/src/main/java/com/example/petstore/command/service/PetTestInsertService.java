@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class PetInsertService {
+public class PetTestInsertService {
 
     private final PetRepository petRepository;
     private final CategoryRepository categoryRepository;

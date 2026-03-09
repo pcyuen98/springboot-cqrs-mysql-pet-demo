@@ -6,14 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.petstore.command.service.PetInsertService;
-import com.example.petstore.command.service.PetInsertService.SharedData;
+import com.example.petstore.command.service.PetTestInsertService;
+import com.example.petstore.command.service.PetTestInsertService.SharedData;
 
 @SpringBootTest
 class PetRepositoryBatchTest {
 
     @Autowired
-    private PetInsertService petInsertService;
+    private PetTestInsertService petInsertService;
 
     @Test
     void testSequentialInsertPerformance() {
