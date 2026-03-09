@@ -1,52 +1,74 @@
 package com.example.petstore.command.controller;
 
-
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.service.PetInsertService;
 import com.example.petstore.command.service.PetInsertService.SharedData;
+import com.example.petstore.command.service.PetMetricsService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Controller for managing Pet lifecycle operations.
- * This version follows the "Thin Controller" pattern by delegating 
- * entity resolution and business logic to the Service layer.
+ * Controller for managing Pet lifecycle operations and performance testing.
+ * This version tracks insertion metrics including throughput and latency.
  */
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/pets")
+@RequestMapping("/api/v1/test/pets")	
 @RequiredArgsConstructor
 public class PetTestController {
 
     private final PetInsertService petInsertService;
+    private final PetMetricsService metricsService;
 
     /**
-     * Creates a new pet entry.
-     * * @param pet The pet entity containing provided Category and Tag IDs.
-     * @return The fully resolved and persisted PetWriteEntity.
+     * Creates a new pet entry and records execution time.
+     * * @return The fully resolved and persisted PetWriteEntity.
      */
-    @PostMapping
+    @GetMapping
     public ResponseEntity<PetWriteEntity> createPet() {
-    	SharedData sharedData = petInsertService.prepareSharedData();
-
-    	// Inside your createPet method:
-    	int randomId = ThreadLocalRandom.current().nextInt(1, 1000000); // Range 1 to 999,999
-    	PetWriteEntity savedPet = petInsertService.insertPet(
-    	    petInsertService.createPetEntity(randomId, sharedData.category(), sharedData.tag())
-    	);
-        log.info("Pet created successfully with ID: {}", savedPet.getPetId());
+        long startTime = System.currentTimeMillis();
         
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(savedPet);
+        try {
+            SharedData sharedData = petInsertService.prepareSharedData();
+            int randomId = ThreadLocalRandom.current().nextInt(1, 1000000);
+            
+            PetWriteEntity savedPet = petInsertService.insertPet(
+                petInsertService.createPetEntity(randomId, sharedData.category(), sharedData.tag())
+            );
+
+            // Calculate and record duration
+            long duration = System.currentTimeMillis() - startTime;
+            metricsService.recordInsert(duration);
+
+            log.info("Pet created successfully with ID: {} in {}ms", savedPet.getPetId(), duration);
+            
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(savedPet);
+        } catch (Exception e) {
+            log.error("Failed to create pet: {}", e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Returns real-time performance metrics for the insertion process.
+     * Includes: Total count, Inserts Per Minute (IPM), Min, Max, and Avg latency.
+     * * @return A map of performance statistics.
+     */
+    @GetMapping("/metrics")
+    public ResponseEntity<Map<String, Object>> getInsertionMetrics() {
+        log.debug("Fetching pet insertion metrics");
+        return ResponseEntity.ok(metricsService.getMetrics());
     }
 }

@@ -1,9 +1,27 @@
 package com.example.petstore.command.entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
+import java.time.LocalDateTime;
 import java.util.List;
+
 import com.example.petstore.common.model.Status;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ForeignKey;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Data
 @Entity
@@ -15,8 +33,6 @@ public class PetWriteEntity {
     @Column(name = "pet_id", nullable = false)
     private Long petId;
 
-    // FIX: Removed CascadeType.PERSIST. When saving a new Pet, 
-    // if the Category has an ID, we only want to MERGE/link it, not PERSIST it as new.
     @ManyToOne(cascade = {CascadeType.MERGE}, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false,
             foreignKey = @ForeignKey(name = "fk_pet_category"))
@@ -28,7 +44,6 @@ public class PetWriteEntity {
     @Column(name = "photo_url", nullable = false, length = 500)
     private String photoUrl;
 
-    // FIX: Removed CascadeType.PERSIST for the same reason as Category.
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "pet_tags",
@@ -43,4 +58,19 @@ public class PetWriteEntity {
 
     @Column(length = 2000, nullable = false)
     private String description;
+
+    @Column(
+    	    name = "created_at", 
+    	    nullable = false, 
+    	    updatable = false, 
+    	    columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
+    	)
+    	private LocalDateTime createdAt;
+    
+    @PrePersist
+    protected void onCreate() {
+        if (this.createdAt == null) {
+            this.createdAt = LocalDateTime.now();
+        }
+    }
 }
