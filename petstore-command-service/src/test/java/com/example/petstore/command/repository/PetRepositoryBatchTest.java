@@ -1,10 +1,11 @@
 package com.example.petstore.command.repository;
 
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.service.PetInsertService;
 import com.example.petstore.command.service.PetInsertService.SharedData;
 
@@ -22,21 +23,13 @@ class PetRepositoryBatchTest {
         int totalRecords = 1000;
         long start = System.currentTimeMillis();
 
-        // 2. Standard sequential loop
-        for (int i = 0; i < totalRecords; i++) {
+        IntStream.range(0, totalRecords).forEach(i -> {
             try {
-                // 3. Use the helper method and pass entities from the record
-                PetWriteEntity pet = petInsertService.createPetEntity(
-                    i, 
-                    sharedData.category(), 
-                    sharedData.tag()
-                );
-
-                petInsertService.insertPet(pet);
+                petInsertService.insertPet(petInsertService.createPetEntity(i, sharedData.category(), sharedData.tag()));
             } catch (Exception e) {
                 System.err.println("Failed to insert record " + i + ": " + e.getMessage());
             }
-        }
+        });
 
         long duration = System.currentTimeMillis() - start;
         double rate = totalRecords / (duration / 1000.0);
