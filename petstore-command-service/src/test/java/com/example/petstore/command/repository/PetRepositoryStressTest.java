@@ -42,7 +42,7 @@ class PetRepositoryStressTest {
         final TagEntity savedTag = tagRepository.saveAndFlush(tagToSave);
         // --------------------------------------------------------------------------------
 
-        int totalRecords = 200;
+        int totalRecords = 1000;
         int threads = 20;
 
         ExecutorService executor = Executors.newFixedThreadPool(threads);
