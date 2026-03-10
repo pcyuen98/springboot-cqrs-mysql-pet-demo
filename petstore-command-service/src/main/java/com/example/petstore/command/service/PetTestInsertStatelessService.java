@@ -1,40 +1,39 @@
 package com.example.petstore.command.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.example.petstore.command.entity.CategoryEntity;
 import com.example.petstore.command.entity.PetWriteEntity;
 import com.example.petstore.command.entity.TagEntity;
 import com.example.petstore.command.repository.CategoryRepository;
-import com.example.petstore.command.repository.PetRepository;
 import com.example.petstore.command.repository.TagRepository;
 import com.example.petstore.common.model.Status;
-
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PetTestInsertService {
+public class PetTestInsertStatelessService {
 
-    private final PetRepository petRepository;
     private final CategoryRepository categoryRepository;
     private final TagRepository tagRepository;
 
-    /**
-     * Data carrier for shared entities.
-     */
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public record SharedData(CategoryEntity category, TagEntity tag) {}
 
     /**
-     * Prepares and saves the shared Category and Tag data.
-     * Returns a Record instead of a List for type safety.
+     * Prepares lookup data using standard JPA.
      */
     @Transactional
     public SharedData prepareSharedData() {
-        // Find or create Category
         CategoryEntity category = categoryRepository.findByName("Dogs")
                 .orElseGet(() -> {
                     CategoryEntity newCat = new CategoryEntity();
@@ -42,7 +41,6 @@ public class PetTestInsertService {
                     return categoryRepository.saveAndFlush(newCat);
                 });
 
-        // Find or create Tag
         TagEntity tag = tagRepository.findByName("Friendly")
                 .orElseGet(() -> {
                     TagEntity newTag = new TagEntity();
@@ -54,17 +52,21 @@ public class PetTestInsertService {
     }
 
     /**
-     * Insert a single Pet entity inside its own transaction.
-     * @return 
+     * HIGH PERFORMANCE: Bypasses 1st-level cache and dirty checking.
      */
     @Transactional
-    public PetWriteEntity insertPet(PetWriteEntity pet) {
-        return petRepository.save(pet);
+    public void insertPetsStateless(List<PetWriteEntity> pets) {
+        SessionFactory sessionFactory = entityManager.getEntityManagerFactory().unwrap(SessionFactory.class);
+        
+        try (StatelessSession session = sessionFactory.openStatelessSession()) {
+            session.beginTransaction();
+            for (PetWriteEntity pet : pets) {
+                session.insert(pet);
+            }
+            session.getTransaction().commit();
+        }
     }
-    
-    /**
-     * Helper to build the entity using the specific entities from the Record.
-     */
+
     public PetWriteEntity createPetEntity(int i, CategoryEntity savedCategory, TagEntity savedTag) {
         PetWriteEntity pet = new PetWriteEntity();
         pet.setName("Pet " + i);
@@ -73,7 +75,7 @@ public class PetTestInsertService {
         pet.setTags(List.of(savedTag));
         pet.setStatus(Status.AVAILABLE);
         pet.setDescription("Description " + i);
-        
+        pet.setCreatedAt(LocalDateTime.now());
         return pet;
     }
 }
